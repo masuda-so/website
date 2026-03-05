@@ -63,6 +63,7 @@ target/
 
 # Environments
 .venv
+.envrc
 venv/
 ENV/
 

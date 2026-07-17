@@ -26,6 +26,7 @@ def main() -> None:
     from django.test import Client
 
     settings.ALLOWED_HOSTS = ["testserver"]
+    settings.COMPRESS_ENABLED = False
     response = Client().get("/")
     if response.status_code != 200:
         raise RuntimeError(f"Homepage render failed: HTTP {response.status_code}")

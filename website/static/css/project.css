@@ -531,9 +531,14 @@ body.nexus-page {
 .nexus-page .project-art b {
   position: relative;
   z-index: 2;
+  max-width: 100%;
+  padding: 0.35em 0.5em 0.42em;
+  color: white;
   font-size: clamp(1.7rem, 3vw, 3.5rem);
   line-height: 1.25;
+  text-align: center;
   letter-spacing: -0.05em;
+  background: var(--ink);
 }
 
 .nexus-page .art-one {
@@ -617,16 +622,6 @@ body.nexus-page {
   height: 150px;
   background: var(--lime);
   border: 0;
-}
-
-.nexus-page .art-three b,
-.nexus-page .art-four b {
-  max-width: 100%;
-  padding: 0.35em 0.5em 0.42em;
-  color: white;
-  text-align: center;
-  background: var(--ink);
-  border: 2px solid rgb(255 255 255 / 80%);
 }
 
 .nexus-page .project-meta {

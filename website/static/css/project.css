@@ -532,13 +532,14 @@ body.nexus-page {
   position: relative;
   z-index: 2;
   max-width: 100%;
-  padding: 0.35em 0.5em 0.42em;
   color: white;
   font-size: clamp(1.7rem, 3vw, 3.5rem);
   line-height: 1.25;
   text-align: center;
   letter-spacing: -0.05em;
-  background: var(--ink);
+  paint-order: stroke fill;
+  -webkit-text-stroke: 0.08em var(--ink);
+  text-shadow: 0 1px 1px rgb(23 33 27 / 35%);
 }
 
 .nexus-page .art-one {

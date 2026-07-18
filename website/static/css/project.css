@@ -532,14 +532,11 @@ body.nexus-page {
   position: relative;
   z-index: 2;
   max-width: 100%;
-  color: white;
+  color: var(--ink);
   font-size: clamp(1.7rem, 3vw, 3.5rem);
   line-height: 1.25;
   text-align: center;
   letter-spacing: -0.05em;
-  paint-order: stroke fill;
-  -webkit-text-stroke: 0.08em var(--ink);
-  text-shadow: 0 1px 1px rgb(23 33 27 / 35%);
 }
 
 .nexus-page .art-one {
@@ -621,8 +618,12 @@ body.nexus-page {
 .nexus-page .art-four::after {
   width: 150px;
   height: 150px;
-  background: var(--lime);
+  background: #315a2f;
   border: 0;
+}
+
+.nexus-page .art-four b {
+  color: white;
 }
 
 .nexus-page .project-meta {

@@ -578,7 +578,7 @@ body.nexus-page {
 
 .nexus-page .art-three i {
   position: absolute;
-  left: 19%;
+  left: 50%;
   width: 230px;
   height: 230px;
   overflow: hidden;
@@ -586,16 +586,17 @@ body.nexus-page {
   border-radius: 50%;
   font-size: 0;
   mix-blend-mode: screen;
+  transform: translateX(-110%);
 }
 
 .nexus-page .art-three i:nth-child(2) {
-  left: 39%;
   background: var(--blue);
+  transform: translateX(-50%);
 }
 
 .nexus-page .art-three i:nth-child(3) {
-  left: 59%;
   background: var(--coral);
+  transform: translateX(10%);
 }
 
 .nexus-page .art-four {

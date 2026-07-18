@@ -658,6 +658,11 @@ body.nexus-page {
   margin: 14px 0 0;
 }
 
+.nexus-page .app-store-link {
+  gap: 18px;
+  margin-top: 16px;
+}
+
 .nexus-page .impact {
   color: white;
   background: var(--ink);

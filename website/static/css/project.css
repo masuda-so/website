@@ -619,8 +619,14 @@ body.nexus-page {
   border: 0;
 }
 
+.nexus-page .art-three b,
 .nexus-page .art-four b {
+  max-width: 100%;
+  padding: 0.35em 0.5em 0.42em;
+  color: white;
   text-align: center;
+  background: var(--ink);
+  border: 2px solid rgb(255 255 255 / 80%);
 }
 
 .nexus-page .project-meta {

@@ -46,10 +46,16 @@ def main() -> None:
         CLIENT / "static/css/project.css",
     )
     shutil.copy2(ROOT / "website/static/js/project.js", CLIENT / "static/js/project.js")
-    shutil.copy2(
-        ROOT / "website/static/images/favicons/favicon.ico",
-        CLIENT / "static/images/favicons/favicon.ico",
-    )
+    favicon_source = ROOT / "website/static/images/favicons"
+    favicon_target = CLIENT / "static/images/favicons"
+    for favicon_name in (
+        "apple-touch-icon.png",
+        "favicon-16x16.png",
+        "favicon-32x32.png",
+        "favicon.ico",
+    ):
+        shutil.copy2(favicon_source / favicon_name, favicon_target / favicon_name)
+    shutil.copy2(favicon_source / "favicon.ico", CLIENT / "favicon.ico")
     shutil.copy2(ROOT / "website/static/images/og.png", CLIENT / "static/images/og.png")
 
     worker = """async function renderPage(request, env, url) {

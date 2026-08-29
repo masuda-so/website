@@ -1,10 +1,13 @@
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
+
+from website.app_documents import app_document_view
 
 from .api import api
 
@@ -25,6 +28,15 @@ urlpatterns = [
     # Media files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
+
+urlpatterns += i18n_patterns(
+    path(
+        "apps/<slug:app_slug>/<slug:document>/",
+        app_document_view,
+        name="app-document",
+    ),
+    prefix_default_language=False,
+)
 
 
 # API URLS

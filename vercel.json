@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "uv sync --locked --no-dev --no-install-package psycopg --no-install-package psycopg-c",
+  "buildCommand": "DATABASE_URL=sqlite:////tmp/ether-sites-build.sqlite DJANGO_SETTINGS_MODULE=config.settings.test .venv/bin/python scripts/build_sites_static.py",
+  "outputDirectory": "dist/client",
+  "trailingSlash": true
+}

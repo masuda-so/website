@@ -1,4 +1,4 @@
-# ruff: noqa: ERA001, E501
+# ruff: noqa: E501
 """Base settings to build other settings files upon."""
 
 from pathlib import Path
@@ -25,14 +25,12 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 # In Windows, this must be set to your system time zone.
 TIME_ZONE = "Asia/Tokyo"
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en"
 # https://docs.djangoproject.com/en/dev/ref/settings/#languages
-# from django.utils.translation import gettext_lazy as _
-# LANGUAGES = [
-#     ('en', _('English')),
-#     ('fr-fr', _('French')),
-#     ('pt-br', _('Portuguese')),
-# ]
+LANGUAGES = [
+    ("en", "English"),
+    ("ja", "日本語"),
+]
 # https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 SITE_ID = 1
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n

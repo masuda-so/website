@@ -70,6 +70,7 @@ ENV/
 .env
 .env.*
 !.env.example
+.vercel/
 .envs/.local/*
 !.envs/.local/*.example
 .envs/.production/*

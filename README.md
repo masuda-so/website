@@ -63,4 +63,14 @@ The static corporate-site build does not require the production Django environme
 
     .venv/bin/python scripts/build_sites_static.py
 
+The static build includes anonymous Privacy Policy, Terms of Use, and Support
+pages for Weave, Vault, Ukiyo, Grace, and Still at
+`/apps/<app>/privacy/`, `/apps/<app>/terms/`, and
+`/apps/<app>/support/`. Japanese versions use the same paths below `/ja/`.
+
+Vercel builds the static site from `main` and publishes `dist/client` to
+production. Pushes to other branches and pull requests create Preview
+deployments. The versioned build contract is in `vercel.json`; no Vercel token
+or production Django credentials belong in Git.
+
 For the full Django application, set `DATABASE_URL` along with the variables in the production examples before starting the application.

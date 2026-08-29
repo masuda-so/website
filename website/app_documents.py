@@ -49,8 +49,7 @@ APP_RECORDS = {
         slug="vault",
         name="Vault",
         summary=(
-            "A private, local-first notebook with search and "
-            "on-device assistance."
+            "A private, local-first notebook with search and on-device assistance."
         ),
         summary_ja=(
             "検索とデバイス上のアシスタントを備えた、プライベートで"
@@ -115,8 +114,7 @@ APP_RECORDS = {
         slug="still",
         name="Still",
         summary=(
-            "A private, local-first space for short pauses and "
-            "on-device guidance."
+            "A private, local-first space for short pauses and on-device guidance."
         ),
         summary_ja=(
             "短い一時停止とデバイス上のガイドのための、プライベートで"
@@ -156,18 +154,16 @@ class AppDocumentView(TemplateView):
         try:
             app = APP_RECORDS[app_slug]
             is_japanese = (translation.get_language() or "en").startswith("ja")
-            document_label = (
-                DOCUMENT_LABELS_JA if is_japanese else DOCUMENT_LABELS
-            )[document]
+            document_label = (DOCUMENT_LABELS_JA if is_japanese else DOCUMENT_LABELS)[
+                document
+            ]
         except KeyError as exc:
             message = "App document not found"
             raise Http404(message) from exc
 
         language_code = "ja" if is_japanese else "en"
         app_summary = app.summary_ja if is_japanese else app.summary
-        stored_content = (
-            app.stored_content_ja if is_japanese else app.stored_content
-        )
+        stored_content = app.stored_content_ja if is_japanese else app.stored_content
         sensitive_content = (
             app.sensitive_content_ja if is_japanese else app.sensitive_content
         )

@@ -47,4 +47,30 @@ Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readt
 
 ## Deployment
 
-The following details how to deploy this application.
+Real credentials and deployment configuration must not be committed to this repository. Copy the tracked examples when a local file is needed:
+
+    cp .envs/.local/.django.example .envs/.local/.django
+    cp .envs/.local/.postgres.example .envs/.local/.postgres
+
+For a Django production deployment, provide the variables listed in `.envs/.production/*.example` through the hosting provider's encrypted environment-variable or secret-management interface. If a local production file is required, copy the examples and keep the resulting files ignored:
+
+    cp .envs/.production/.django.example .envs/.production/.django
+    cp .envs/.production/.postgres.example .envs/.production/.postgres
+
+Do not reuse the placeholder values. Generate unique credentials for every environment. Values previously committed to Git history must be treated as compromised and revoked or rotated in every affected service. If a history rewrite is still required after the risk is mitigated, follow GitHub's [sensitive-data removal procedure](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository).
+
+The static corporate-site build does not require the production Django environment files:
+
+    .venv/bin/python scripts/build_sites_static.py
+
+The static build includes anonymous Privacy Policy, Terms of Use, and Support
+pages for Weave, Vault, Ukiyo, Grace, and Still at
+`/apps/<app>/privacy/`, `/apps/<app>/terms/`, and
+`/apps/<app>/support/`. Japanese versions use the same paths below `/ja/`.
+
+Vercel builds the static site from `main` and publishes `dist/client` to
+production. Pushes to other branches and pull requests create Preview
+deployments. The versioned build contract is in `vercel.json`; no Vercel token
+or production Django credentials belong in Git.
+
+For the full Django application, set `DATABASE_URL` along with the variables in the production examples before starting the application.

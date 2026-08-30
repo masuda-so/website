@@ -1,4 +1,4 @@
-"""Build the public Ether landing page for OpenAI Sites deployment."""
+"""Build the public Ether site for Vercel deployment."""
 
 from __future__ import annotations
 

@@ -2,6 +2,7 @@ from http import HTTPStatus
 
 import pytest
 
+from scripts.build_sites_static import SITE_HOST
 from website.app_documents import APP_RECORDS
 from website.app_documents import DOCUMENT_LABELS
 from website.app_documents import DOCUMENT_LABELS_JA
@@ -95,6 +96,33 @@ def test_language_versions_are_cross_linked(client):
         assert b"http://testserver/ja/apps/grace/privacy/" in response.content
     assert "アプリが保存するデータ".encode() in japanese.content
     assert b"Data stored by the app" not in japanese.content
+
+
+def test_document_navigation_and_image_metadata_are_localized(client):
+    english = client.get("/apps/grace/privacy/")
+    japanese = client.get("/ja/apps/grace/privacy/")
+
+    assert b'aria-label="Grace documents"' in english.content
+    assert 'aria-label="Graceの文書"'.encode() in japanese.content
+    assert b"Turn ideas into value" in english.content
+    assert "アイデアを、価値へ。".encode() in japanese.content
+    assert b'name="twitter:image:alt"' in english.content
+    assert b'name="twitter:image:alt"' in japanese.content
+
+
+def test_public_build_host_is_used_for_canonical_links(client, settings):
+    settings.ALLOWED_HOSTS = [SITE_HOST]
+
+    response = client.get(
+        "/ja/apps/grace/privacy/",
+        secure=True,
+        HTTP_HOST=SITE_HOST,
+    )
+
+    assert response.status_code == HTTPStatus.OK
+    assert b"https://ether-llc.com/ja/apps/grace/privacy/" in response.content
+    assert b"https://ether-llc.com/apps/grace/privacy/" in response.content
+    assert b"testserver" not in response.content
 
 
 @pytest.mark.parametrize(

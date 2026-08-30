@@ -35,7 +35,7 @@
       <h1>{{ app.name }} {{ document_label }}</h1>
       <p>{{ app_summary }}</p>
     </div>
-    <nav class="legal-tabs" aria-label="{{ app.name }} documents">
+    <nav class="legal-tabs" aria-label="{{ documents_aria_label }}">
       <a href="{% url 'app-document' app_slug=app.slug document='privacy' %}"
          {% if document == "privacy" %}aria-current="page"{% endif %}>
         {% if is_japanese %}プライバシー{% else %}Privacy{% endif %}

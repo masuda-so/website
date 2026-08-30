@@ -13,6 +13,13 @@ def _disable_template_compression(settings) -> None:
     settings.DATABASES["default"]["ATOMIC_REQUESTS"] = False
 
 
+def test_home_declares_its_japanese_language(client):
+    response = client.get("/")
+
+    assert response.status_code == HTTPStatus.OK
+    assert b'<html lang="ja">' in response.content
+
+
 @pytest.mark.parametrize("app_slug", APP_RECORDS)
 @pytest.mark.parametrize("document", DOCUMENT_LABELS)
 @pytest.mark.parametrize(

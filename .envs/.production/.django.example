@@ -1,0 +1,13 @@
+DJANGO_SETTINGS_MODULE=config.settings.production
+DJANGO_SECRET_KEY=replace-with-a-long-random-value
+DJANGO_ADMIN_URL=replace-with-a-private-admin-path/
+DJANGO_ALLOWED_HOSTS=example.com
+DJANGO_SECURE_SSL_REDIRECT=True
+DJANGO_SERVER_EMAIL=noreply@example.com
+DJANGO_AWS_ACCESS_KEY_ID=replace-with-an-aws-access-key-id
+DJANGO_AWS_SECRET_ACCESS_KEY=replace-with-an-aws-secret-access-key
+DJANGO_AWS_STORAGE_BUCKET_NAME=replace-with-a-bucket-name
+DJANGO_ACCOUNT_ALLOW_REGISTRATION=False
+WEB_CONCURRENCY=4
+REDIS_URL=redis://replace-with-a-redis-host:6379/0
+DATABASE_URL=postgres://website:replace-with-a-unique-password@replace-with-a-postgres-host:5432/website

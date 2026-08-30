@@ -66,6 +66,16 @@ target/
 venv/
 ENV/
 
+# Runtime environment files must stay outside version control.
+.env
+.env.*
+!.env.example
+.vercel/
+.envs/.local/*
+!.envs/.local/*.example
+.envs/.production/*
+!.envs/.production/*.example
+
 # Rope project settings
 .ropeproject
 

@@ -584,7 +584,6 @@ body.nexus-page {
 .nexus-page .art-three {
   align-items: center;
   justify-content: center;
-  min-height: 390px;
   color: white;
   background: #202a24;
 }

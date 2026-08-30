@@ -29,7 +29,8 @@
           content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/og.png' %}" />
     <meta property="og:image:width" content="1536" />
     <meta property="og:image:height" content="1024" />
-    <meta property="og:image:alt" content="アイデアを、価値へ。— Ether LLC / Tokyo" />
+    <meta property="og:image:alt"
+          content="{{ og_image_alt|default:'アイデアを、価値へ。— Ether LLC / Tokyo' }}" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title"
           content="{{ page_title|default:'Ether合同会社 — アイデアを、価値へ。' }}" />
@@ -37,6 +38,8 @@
           content="{{ meta_description|default:'テクノロジー、クリエイティブ、コマースを横断し、構想から実装までをつなぐEther合同会社。' }}" />
     <meta name="twitter:image"
           content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/og.png' %}" />
+    <meta name="twitter:image:alt"
+          content="{{ og_image_alt|default:'アイデアを、価値へ。— Ether LLC / Tokyo' }}" />
     <link rel="canonical"
           href="{% if canonical_url %}{{ canonical_url }}{% else %}{{ request.build_absolute_uri }}{% endif %}" />
     {% if english_absolute_url and japanese_absolute_url %}

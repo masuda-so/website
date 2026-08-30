@@ -195,6 +195,14 @@ class AppDocumentView(TemplateView):
             page_title=f"{app.name} {document_label} | Ether LLC",
             meta_description=f"{app_summary} {document_label}{punctuation}",
             og_locale="ja_JP" if is_japanese else "en_US",
+            documents_aria_label=(
+                f"{app.name}の文書" if is_japanese else f"{app.name} documents"
+            ),
+            og_image_alt=(
+                "アイデアを、価値へ。— Ether LLC / Tokyo"
+                if is_japanese
+                else "Turn ideas into value — Ether LLC / Tokyo"
+            ),
         )
         return context
 

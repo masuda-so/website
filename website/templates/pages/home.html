@@ -1,9 +1,21 @@
 {% extends "base.html" %}
 
-{% load static %}
+{% load static compress %}
 
+{% block html_language %}ja{% endblock html_language %}
 {% block title %}Ether合同会社 — アイデアを、価値へ。{% endblock title %}
 {% block bodyclass %}nexus-page{% endblock bodyclass %}
+{# Overrides base.html to drop the Bootstrap CDN assets, which this page does not use. #}
+{% block css %}
+  {% compress css %}
+    <link href="{% static 'css/project.css' %}" rel="stylesheet" />
+  {% endcompress %}
+{% endblock css %}
+{% block javascript %}
+  {% compress js %}
+    <script defer src="{% static 'js/project.js' %}"></script>
+  {% endcompress %}
+{% endblock javascript %}
 {% block body %}
   <a class="skip-link" href="#main-content">本文へ移動</a>
   <div class="site-shell">

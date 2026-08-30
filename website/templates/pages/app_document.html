@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% load static compress i18n %}
+
+{% block title %}{{ page_title }}{% endblock title %}
+{% block bodyclass %}legal-page{% endblock bodyclass %}
+{# Overrides base.html to drop the Bootstrap CDN assets, which this page does not use. #}
+{% block css %}
+  {% compress css %}
+    <link href="{% static 'css/project.css' %}" rel="stylesheet" />
+  {% endcompress %}
+{% endblock css %}
+{% block javascript %}
+  {% compress js %}
+    <script defer src="{% static 'js/project.js' %}"></script>
+  {% endcompress %}
+{% endblock javascript %}
+{% block body %}
+  <a class="legal-skip-link" href="#document-content">{% if is_japanese %}本文へ移動{% else %}Skip to content{% endif %}</a>
+  <header class="legal-header">
+    <a class="legal-brand"
+       href="{% url 'home' %}"
+       aria-label="{% if is_japanese %}Ether LLC ホーム{% else %}Ether LLC home{% endif %}">
+      <span aria-hidden="true">E</span>
+      <strong>ETHER LLC</strong>
+    </a>
+    <div class="legal-header-links">
+      <a class="legal-home-link" href="{{ alternate_language_url }}">{{ alternate_language_label }}</a>
+      <a class="legal-home-link" href="{% url 'home' %}">{% if is_japanese %}会社ホーム{% else %}Company home{% endif %}</a>
+    </div>
+  </header>
+  <main id="document-content" class="legal-shell" tabindex="-1">
+    <div class="legal-heading">
+      <p class="legal-eyebrow">ETHER LLC / {{ app.name|upper }}</p>
+      <h1>{{ app.name }} {{ document_label }}</h1>
+      <p>{{ app_summary }}</p>
+    </div>
+    <nav class="legal-tabs" aria-label="{{ documents_aria_label }}">
+      <a href="{% url 'app-document' app_slug=app.slug document='privacy' %}"
+         {% if document == "privacy" %}aria-current="page"{% endif %}>
+        {% if is_japanese %}プライバシー{% else %}Privacy{% endif %}
+      </a>
+      <a href="{% url 'app-document' app_slug=app.slug document='terms' %}"
+         {% if document == "terms" %}aria-current="page"{% endif %}>
+        {% if is_japanese %}利用規約{% else %}Terms{% endif %}
+      </a>
+      <a href="{% url 'app-document' app_slug=app.slug document='support' %}"
+         {% if document == "support" %}aria-current="page"{% endif %}>
+        {% if is_japanese %}サポート{% else %}Support{% endif %}
+      </a>
+    </nav>
+    <article class="legal-document">
+      {% if is_japanese %}
+        {% if document == "privacy" %}
+          <p class="legal-date">発効日：2026年7月25日</p>
+          <section>
+            <h2>アプリが保存するデータ</h2>
+            <p>{{ app.name }}は、{{ stored_content }}をデバイス上のローカルSwiftDataストアに保存します。本アプリには、分析SDK、広告SDK、アカウントシステム、リモートコンテンツデータベースは含まれません。</p>
+            {% if app.uses_photos %}
+              <p>{{ app.name }}で写真ピッカーを使用する場合、システムの写真ピッカーは選択された項目だけをアプリに渡します。{{ app.name }}は写真ライブラリ全体への無制限のアクセスを要求しません。選択した画像はローカル保存用に処理され、自動的にアップロードされることはありません。</p>
+            {% else %}
+              <p>{{ app.name }}は写真ライブラリと連携しません。</p>
+            {% endif %}
+          </section>
+          <section>
+            <h2>デバイス上のアシスタント</h2>
+            <p>対応するAppleデバイスと言語では、アシスタントのリクエストにデバイス上のApple Foundation Modelsを使用します。{{ app.name }}は、プロンプトや生成結果をリモートAI事業者またはEther LLCへ送信しません。モデルの利用可否とシステムレベルの診断は、OSおよび適用されるAppleの条件に従います。</p>
+          </section>
+          <section>
+            <h2>購入</h2>
+            <p>購入処理はAppleが行います。{{ app.name }}は、ローカライズされた製品情報を取得し、暗号学的に検証されたStoreKit取引を読み取ってProアクセスの有効性を判断します。Ether LLCがアプリ内で支払いカード情報を受信または保存することはありません。</p>
+          </section>
+          <section>
+            <h2>保持と削除</h2>
+            <p>ローカルコンテンツは、{{ app.name }}内で削除するか、アプリを削除するか、デバイスを消去するまでデバイス上に残ります。項目を削除すると、アプリのローカルストアから削除されます。StoreKitの取引履歴はAppleのポリシーに従ってAppleが保持します。</p>
+          </section>
+          <section>
+            <h2>お問い合わせ</h2>
+            <p>プライバシーに関する質問は、<a href="{% url 'app-document' app_slug=app.slug document='support' %}">{{ app.name }}サポート</a>をご利用ください。公開のサポート依頼には、{{ sensitive_content }}を含めないでください。</p>
+            <p>{{ app.name }}に新しいデータ利用が追加された場合、本ポリシーを変更することがあります。その際は上記の発効日を更新します。</p>
+          </section>
+        {% elif document == "terms" %}
+          <p class="legal-date">発効日：2026年7月25日</p>
+          <section>
+            <h2>{{ app.name }}の利用</h2>
+            <p>{{ app.name }}は、個人的かつ適法な目的で利用できます。作成したコンテンツ、およびアシスタントの出力を信頼、共有、利用する前の確認については、利用者が責任を負います。</p>
+            <p>{{ app.name }}とデバイス上のアシスタントは、医療、メンタルヘルス、法律、金融、緊急対応のサービスを提供しません。生成結果は不完全または不正確な場合があります。資格を有する専門家の助言の代わりとして使用しないでください。</p>
+          </section>
+          <section>
+            <h2>Proプラン</h2>
+            <p>Daily Passは非更新型のアプリ内課金で、検証済みの購入日時から24時間Proアクセスを提供します。自動更新されません。</p>
+            <p>MonthlyとYearlyは自動更新サブスクリプションです。購入確認後、Apple Accountに課金されます。現在の期間が終了する24時間以上前に解約しない限り、サブスクリプションは更新されます。Apple Accountのサブスクリプション設定から管理または解約できます。購入時にApp Storeに表示される価格と請求期間が適用されます。</p>
+            <p>
+              購入には、Appleの
+              <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+                 rel="external">標準エンドユーザ使用許諾契約</a>
+              および適用されるApp Storeの条件も適用されます。
+            </p>
+          </section>
+          <section>
+            <h2>利用可能性と保証</h2>
+            <p>Apple Foundation Modelsに依存する機能には、対応デバイス、OSのバージョン、言語、モデルが利用可能であることが必要です。{{ app.name }}は、法律で認められる範囲において現状有姿で提供され、すべての機能が常に利用可能または無停止であることを保証しません。</p>
+          </section>
+          <section>
+            <h2>変更とお問い合わせ</h2>
+            <p>Ether LLCは、製品の発展に応じてアプリまたは本規約を更新することがあります。重要な変更は新しい発効日に反映します。サポートは、機密情報を投稿せずに<a href="{% url 'app-document' app_slug=app.slug document='support' %}">{{ app.name }}サポート</a>をご利用ください。</p>
+          </section>
+        {% else %}
+          <p class="legal-date">サポート情報確認日：2026年8月10日</p>
+          <section>
+            <h2>サポートを受ける</h2>
+            <p>再現可能な技術的不具合は、公開の<a href="{{ app.issue_url }}" rel="external">{{ app.name }} Issue Tracker</a>からお知らせください。</p>
+            <p>アプリのバージョン、iOSまたはiPadOSのバージョン、端末、再現手順、期待した結果、実際の結果をご記載ください。スクリーンショットを添付する場合は、事前に非公開コンテンツを除いてください。</p>
+          </section>
+          <section class="legal-warning">
+            <h2>プライバシーを守る</h2>
+            <p>Issue Trackerは公開されています。{{ sensitive_content }}、Apple Accountの詳細、取引ID、連絡先は投稿しないでください。</p>
+          </section>
+          <section>
+            <h2>購入とサブスクリプション</h2>
+            <p>最初に{{ app.name }}内の「購入を復元」をお試しください。自動更新プランはApple Accountのサブスクリプション設定から管理できます。請求、返金、Apple Accountの購入履歴は、Appleの<a href="https://reportaproblem.apple.com/" rel="external">問題を報告する</a>で取り扱われます。</p>
+          </section>
+          <section>
+            <h2>デバイス上のアシスタント</h2>
+            <p>アシスタントの利用可否は、対応するAppleデバイス、OSのバージョン、言語、ダウンロード済みのシステムモデルに依存します。アシスタントを利用できない場合も、アプリの基本機能は引き続き利用できます。</p>
+          </section>
+        {% endif %}
+      {% else %}
+        {% if document == "privacy" %}
+          <p class="legal-date">Effective date: July 25, 2026</p>
+          <section>
+            <h2>Data stored by the app</h2>
+            <p>{{ app.name }} stores {{ stored_content }} in its local SwiftData store on your device. The app does not include an analytics SDK, advertising SDK, account system, or remote content database.</p>
+            {% if app.uses_photos %}
+              <p>When {{ app.name }} offers a photo picker, the system picker gives the app only the item you select. {{ app.name }} does not request unrestricted access to your photo library. The selected image is prepared for local storage; it is not automatically uploaded.</p>
+            {% else %}
+              <p>{{ app.name }} does not integrate with your photo library.</p>
+            {% endif %}
+          </section>
+          <section>
+            <h2>On-device assistant</h2>
+            <p>On supported Apple devices and languages, assistant requests use Apple Foundation Models on device. {{ app.name }} does not send prompts or generated responses to a remote AI provider or to Ether LLC. Model availability and system-level diagnostics are controlled by the operating system and Apple’s applicable terms.</p>
+          </section>
+          <section>
+            <h2>Purchases</h2>
+            <p>Apple processes purchases. {{ app.name }} requests localized product information and reads cryptographically verified StoreKit transactions to decide whether Pro access is active. Ether LLC does not receive or store your payment-card details in the app.</p>
+          </section>
+          <section>
+            <h2>Retention and deletion</h2>
+            <p>Local content remains on the device until you delete it in {{ app.name }}, remove the app, or erase the device. Deleting an item removes it from the app’s local store. StoreKit transaction history is retained by Apple under Apple’s policies.</p>
+          </section>
+          <section>
+            <h2>Contact</h2>
+            <p>For privacy questions, use <a href="{% url 'app-document' app_slug=app.slug document='support' %}">{{ app.name }} Support</a>. Do not include {{ sensitive_content }} in a public support request.</p>
+            <p>This policy may change when {{ app.name }} adds a new data practice. The effective date above will be updated when that happens.</p>
+          </section>
+        {% elif document == "terms" %}
+          <p class="legal-date">Effective date: July 25, 2026</p>
+          <section>
+            <h2>Using {{ app.name }}</h2>
+            <p>You may use {{ app.name }} for personal, lawful purposes. You are responsible for the content you create and for reviewing any assistant output before relying on, sharing, or acting on it.</p>
+            <p>{{ app.name }} and its on-device assistant do not provide medical, mental-health, legal, financial, or emergency services. Generated output may be incomplete or incorrect. Do not use the app as a substitute for qualified professional advice.</p>
+          </section>
+          <section>
+            <h2>Pro plans</h2>
+            <p>The Daily Pass is a non-renewing in-app purchase that provides 24 hours of Pro access from its verified purchase date. It does not renew automatically.</p>
+            <p>Monthly and Yearly are auto-renewable subscriptions. Payment is charged to your Apple Account after confirmation. A subscription renews unless you cancel it at least 24 hours before the end of the current period. You can manage or cancel it in your Apple Account subscription settings. The price and billing period shown by the App Store at purchase time control.</p>
+            <p>
+              Purchases are also subject to Apple’s
+              <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+                 rel="external">Licensed Application End User License Agreement</a>
+              and applicable App Store terms.
+            </p>
+          </section>
+          <section>
+            <h2>Availability and warranties</h2>
+            <p>Features that depend on Apple Foundation Models require a supported device, operating-system version, language, and model availability. {{ app.name }} is provided “as is” to the extent permitted by law, without a promise that every feature will always be available or error-free.</p>
+          </section>
+          <section>
+            <h2>Changes and contact</h2>
+            <p>Ether LLC may update the app or these terms as the product evolves. Material changes will be reflected by a new effective date. For support, use <a href="{% url 'app-document' app_slug=app.slug document='support' %}">{{ app.name }} Support</a> without posting sensitive or confidential information.</p>
+          </section>
+        {% else %}
+          <p class="legal-date">Support information reviewed: August 10, 2026</p>
+          <section>
+            <h2>Get help</h2>
+            <p>For a reproducible technical issue, use the public <a href="{{ app.issue_url }}" rel="external">{{ app.name }} issue tracker</a>.</p>
+            <p>Include the app version, iOS or iPadOS version, device model, steps to reproduce, expected result, and actual result. Screenshots are useful only after private content has been removed.</p>
+          </section>
+          <section class="legal-warning">
+            <h2>Protect your privacy</h2>
+            <p>The issue tracker is public. Never post {{ sensitive_content }}, Apple Account details, transaction identifiers, or contact information.</p>
+          </section>
+          <section>
+            <h2>Purchases and subscriptions</h2>
+            <p>First try Restore Purchases in {{ app.name }}. Auto-renewable plans can be managed in Apple Account subscription settings. Billing, refunds, and Apple Account purchase history are handled by Apple through <a href="https://reportaproblem.apple.com/" rel="external">Report a Problem</a>.</p>
+          </section>
+          <section>
+            <h2>On-device assistant</h2>
+            <p>Assistant availability depends on a supported Apple device, OS version, language, and downloaded system model. The core app remains available when the assistant is unavailable.</p>
+          </section>
+        {% endif %}
+      {% endif %}
+    </article>
+  </main>
+  <footer class="legal-footer">
+    <span>© 2026 Ether LLC</span>
+    <a href="{% url 'home' %}">ether-llc.com</a>
+  </footer>
+{% endblock body %}

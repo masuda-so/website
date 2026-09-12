@@ -80,7 +80,8 @@
             <p>{{ app.name }}に新しいデータ利用が追加された場合、本ポリシーを変更することがあります。その際は上記の発効日を更新します。</p>
           </section>
         {% elif document == "terms" %}
-          <p class="legal-date">発効日：2026年7月25日</p>
+          {% if app.slug == "weave" %}<p class="legal-date">2026-09-12</p>{% else %}
+          <p class="legal-date">発効日：2026年7月25日</p>{% endif %}
           <section>
             <h2>{{ app.name }}の利用</h2>
             <p>{{ app.name }}は、個人的かつ適法な目的で利用できます。作成したコンテンツ、およびアシスタントの出力を信頼、共有、利用する前の確認については、利用者が責任を負います。</p>
@@ -88,7 +89,7 @@
           </section>
           <section>
             <h2>Proプラン</h2>
-            <p>Daily Passは非更新型のアプリ内課金で、検証済みの購入日時から24時間Proアクセスを提供します。自動更新されません。</p>
+            <p>{% if app.slug == "weave" %}7-Day Pass（7日間パス）は非更新型のアプリ内課金で、検証済みの購入日時から7日間Proアクセスを提供します。{% else %}Daily Passは非更新型のアプリ内課金で、検証済みの購入日時から24時間Proアクセスを提供します。{% endif %}自動更新されません。</p>
             <p>MonthlyとYearlyは自動更新サブスクリプションです。購入確認後、Apple Accountに課金されます。現在の期間が終了する24時間以上前に解約しない限り、サブスクリプションは更新されます。Apple Accountのサブスクリプション設定から管理または解約できます。購入時にApp Storeに表示される価格と請求期間が適用されます。</p>
             <p>
               購入には、Appleの
@@ -155,7 +156,8 @@
             <p>This policy may change when {{ app.name }} adds a new data practice. The effective date above will be updated when that happens.</p>
           </section>
         {% elif document == "terms" %}
-          <p class="legal-date">Effective date: July 25, 2026</p>
+          {% if app.slug == "weave" %}<p class="legal-date">2026-09-12</p>{% else %}
+          <p class="legal-date">Effective date: July 25, 2026</p>{% endif %}
           <section>
             <h2>Using {{ app.name }}</h2>
             <p>You may use {{ app.name }} for personal, lawful purposes. You are responsible for the content you create and for reviewing any assistant output before relying on, sharing, or acting on it.</p>
@@ -163,7 +165,7 @@
           </section>
           <section>
             <h2>Pro plans</h2>
-            <p>The Daily Pass is a non-renewing in-app purchase that provides 24 hours of Pro access from its verified purchase date. It does not renew automatically.</p>
+            <p>{% if app.slug == "weave" %}The 7-Day Pass is a non-renewing in-app purchase that provides 7 days of Pro access from its verified purchase date.{% else %}The Daily Pass is a non-renewing in-app purchase that provides 24 hours of Pro access from its verified purchase date.{% endif %} It does not renew automatically.</p>
             <p>Monthly and Yearly are auto-renewable subscriptions. Payment is charged to your Apple Account after confirmation. A subscription renews unless you cancel it at least 24 hours before the end of the current period. You can manage or cancel it in your Apple Account subscription settings. The price and billing period shown by the App Store at purchase time control.</p>
             <p>
               Purchases are also subject to Apple’s

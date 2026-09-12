@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load static compress %}
+{% load static compress i18n %}
 
 {% block html_language %}ja{% endblock html_language %}
 {% block title %}Ether合同会社 — アイデアを、価値へ。{% endblock title %}
@@ -17,6 +17,13 @@
   {% endcompress %}
 {% endblock javascript %}
 {% block body %}
+  {% language "ja" %}
+    {% url 'app-document' app_slug='grace' document='support' as grace_support_url %}
+    {% url 'app-document' app_slug='vault' document='support' as vault_support_url %}
+    {% url 'app-document' app_slug='ukiyo' document='support' as ukiyo_support_url %}
+    {% url 'app-document' app_slug='still' document='support' as still_support_url %}
+    {% url 'app-document' app_slug='weave' document='support' as weave_support_url %}
+  {% endlanguage %}
   <a class="skip-link" href="#main-content">本文へ移動</a>
   <div class="site-shell">
     <header class="site-header" data-header>
@@ -33,10 +40,11 @@
         <span aria-hidden="true">&nbsp;</span><span aria-hidden="true">&nbsp;</span><span aria-hidden="true">&nbsp;</span><span class="visually-hidden">メニュー</span>
       </button>
       <nav id="site-nav" class="site-nav" aria-label="メインナビゲーション">
+        <a href="#apps">アプリ</a>
         <a href="#about">私たちについて</a>
         <a href="#projects">事業領域</a>
         <a href="#impact">会社情報</a>
-        <a href="#contact" class="nav-cta">お問い合わせ <span aria-hidden="true">↓</span></a>
+        <a href="#contact" class="nav-cta">サポート <span aria-hidden="true">↓</span></a>
       </nav>
     </header>
     <main id="main-content" tabindex="-1">
@@ -50,8 +58,8 @@
             <br />
             <em>価値へ。</em>
           </h1>
-          <p class="hero-lead">Ether合同会社は、テクノロジー、クリエイティブ、コマースを横断し、構想から実装までをつなぐ事業会社です。</p>
-          <a class="text-link" href="#about">私たちのこと <span>↓</span></a>
+          <p class="hero-lead">書く、残す、ひと息つく。Ether合同会社は、日々の小さな時間を支えるiOSアプリを開発・運営しています。</p>
+          <a class="text-link" href="#apps">アプリを見る <span>↓</span></a>
         </div>
         <div class="hero-visual reveal"
              role="img"
@@ -62,6 +70,45 @@
           <div class="cross">＋</div>
         </div>
         <p class="scroll-note">SCROLL TO EXPLORE <span>↓</span></p>
+      </section>
+      <section id="apps" class="apps section-pad" aria-labelledby="apps-title">
+        <div class="section-label"><span>APPS</span> MADE BY ETHER</div>
+        <h2 id="apps-title">毎日に、ひとつの余白を。</h2>
+        <p class="section-intro">記録や創作、休息のためのアプリをお届けしています。価格・対応機種・最新の機能は、各アプリのApp Storeページでご確認ください。</p>
+        <div class="app-grid">
+          <article class="app-card">
+            <h3>Grace</h3>
+            <p class="app-tagline">感謝を、日々の記録に。</p>
+            <p>大切な出来事や写真を残す、感謝のジャーナル。</p>
+            <a class="text-link"
+               href="https://apps.apple.com/jp/app/grace-gratitude-journal/id6807439542">GraceをApp Storeで見る <span aria-hidden="true">↗</span></a>
+            <a class="app-support-link" href="{{ grace_support_url }}">Graceのサポート</a>
+          </article>
+          <article class="app-card">
+            <h3>Vault</h3>
+            <p class="app-tagline">思いつきを、手元に。</p>
+            <p>ノートを書き留め、検索して振り返る。</p>
+            <a class="text-link"
+               href="https://apps.apple.com/jp/app/vault-private-notes/id6807439193">VaultをApp Storeで見る <span aria-hidden="true">↗</span></a>
+            <a class="app-support-link" href="{{ vault_support_url }}">Vaultのサポート</a>
+          </article>
+          <article class="app-card">
+            <h3>Ukiyo</h3>
+            <p class="app-tagline">写真に、ひと言を。</p>
+            <p>選んだ画像とキャプションを残す、ビジュアルジャーナル。</p>
+            <a class="text-link"
+               href="https://apps.apple.com/jp/app/ukiyo-image-stories/id6807439414">UkiyoをApp Storeで見る <span aria-hidden="true">↗</span></a>
+            <a class="app-support-link" href="{{ ukiyo_support_url }}">Ukiyoのサポート</a>
+          </article>
+          <article class="app-card">
+            <h3>Still</h3>
+            <p class="app-tagline">日常に、ひと息を。</p>
+            <p>短い休息の時間をつくり、記録する。</p>
+            <a class="text-link"
+               href="https://apps.apple.com/jp/app/still-quiet-pause/id6807433476">StillをApp Storeで見る <span aria-hidden="true">↗</span></a>
+            <a class="app-support-link" href="{{ still_support_url }}">Stillのサポート</a>
+          </article>
+        </div>
       </section>
       <section id="about" class="intro section-pad">
         <div class="section-label reveal"><span>01</span> WHO WE ARE</div>
@@ -107,7 +154,7 @@
             <button type="button" data-filter="business" aria-pressed="false">BUSINESS</button>
           </div>
         </div>
-        <p class="section-intro reveal">定款に掲げる事業目的を、4つの領域に整理して紹介します。</p>
+        <p class="section-intro reveal">現在はiOSアプリの開発・運営に取り組んでいます。以下は、将来の展開も含む定款上の事業領域です。</p>
         <p class="filter-status" aria-live="polite" data-filter-status>4つの事業領域を表示中</p>
         <div class="project-grid">
           <article class="project-card reveal" data-category="digital">
@@ -234,17 +281,21 @@
       </section>
       <section id="contact" class="contact section-pad">
         <div class="contact-copy reveal">
-          <p class="eyebrow"><span aria-hidden="true">&nbsp;</span> START A CONVERSATION</p>
+          <p class="eyebrow"><span aria-hidden="true">&nbsp;</span> APP SUPPORT</p>
           <h2>
-            次の価値を、
+            困ったときも、
             <br />
-            <em>一緒に。</em>
+            <em>使い続けるために。</em>
           </h2>
-          <p>事業、制作、テクノロジーに関するご相談窓口を準備しています。公開まで、もうしばらくお待ちください。</p>
+          <p>使い方、購入の復元、不具合の報告は、各アプリのサポートページをご確認ください。報告先のGitHub Issuesは公開されます。非公開の記録や写真、支払い情報は投稿しないでください。</p>
         </div>
-        <div class="contact-status reveal" aria-label="お問い合わせ窓口は準備中です">
-          <span>CONTACT DESK</span><strong>準備中</strong><small>COMING SOON</small>
-        </div>
+        <nav class="support-links" aria-label="アプリ別サポート">
+          <a href="{{ grace_support_url }}">Grace <span aria-hidden="true">→</span></a>
+          <a href="{{ vault_support_url }}">Vault <span aria-hidden="true">→</span></a>
+          <a href="{{ ukiyo_support_url }}">Ukiyo <span aria-hidden="true">→</span></a>
+          <a href="{{ still_support_url }}">Still <span aria-hidden="true">→</span></a>
+          <a href="{{ weave_support_url }}">Weave <span aria-hidden="true">→</span></a>
+        </nav>
       </section>
     </main>
     <footer>

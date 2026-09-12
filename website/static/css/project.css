@@ -1400,3 +1400,66 @@ body.legal-page {
     padding: 26px 22px;
   }
 }
+
+/* Product discovery uses the existing site palette and typography. */
+.nexus-page .app-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 36px;
+}
+
+.nexus-page .app-card {
+  padding: 28px;
+  border: 1px solid currentcolor;
+}
+
+.nexus-page .app-card h3 {
+  margin: 0 0 16px;
+  font-size: 32px;
+}
+
+.nexus-page .app-card p {
+  line-height: 1.8;
+}
+
+.nexus-page .app-tagline {
+  font-weight: 700;
+}
+
+.nexus-page .app-card .text-link {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.nexus-page .app-support-link {
+  display: inline-block;
+  padding: 14px 0;
+  text-underline-offset: 4px;
+}
+
+.nexus-page .support-links {
+  display: grid;
+  flex: 0 1 320px;
+  min-width: 220px;
+}
+
+.nexus-page .support-links a {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid currentcolor;
+  font-size: 20px;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 600px) {
+  .nexus-page .app-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nexus-page .support-links {
+    width: 100%;
+    flex-basis: auto;
+  }
+}

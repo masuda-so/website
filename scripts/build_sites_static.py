@@ -70,6 +70,7 @@ def main() -> None:
     favicon_source = ROOT / "website/static/images/favicons"
     favicon_target = CLIENT / "static/images/favicons"
     for favicon_name in (
+        "ether.svg",
         "apple-touch-icon.png",
         "favicon-16x16.png",
         "favicon-32x32.png",

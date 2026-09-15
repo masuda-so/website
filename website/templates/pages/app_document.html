@@ -21,7 +21,10 @@
     <a class="legal-brand"
        href="{% url 'home' %}"
        aria-label="{% if is_japanese %}Ether LLC ホーム{% else %}Ether LLC home{% endif %}">
-      <span aria-hidden="true">E</span>
+      <img src="{% static 'images/favicons/ether.svg' %}"
+           width="38"
+           height="38"
+           alt="" />
       <strong>ETHER LLC</strong>
     </a>
     <div class="legal-header-links">

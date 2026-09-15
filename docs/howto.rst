@@ -31,4 +31,3 @@ To compile all docstrings automatically into documentation source files, use the
     ::
 
         uv run make apidocs
-

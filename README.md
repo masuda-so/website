@@ -45,6 +45,11 @@ To run the tests, check your test coverage, and generate an HTML coverage report
 
 Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/2-local-development/developing-locally.html#using-webpack-or-gulp).
 
+## Design references
+
+The public site's product presentation, retained brand tokens, and asset
+provenance are documented in [docs/DESIGN.md](docs/DESIGN.md).
+
 ## Deployment
 
 Real credentials and deployment configuration must not be committed to this repository. Copy the tracked examples when a local file is needed:

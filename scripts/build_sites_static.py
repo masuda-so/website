@@ -67,6 +67,8 @@ def main() -> None:
         CLIENT / "static/css/project.css",
     )
     shutil.copy2(ROOT / "website/static/js/project.js", CLIENT / "static/js/project.js")
+    shutil.copytree(ROOT / "website/static/images/apps", CLIENT / "static/images/apps")
+    shutil.copy2(ROOT / "THIRD_PARTY_NOTICES.md", CLIENT / "third-party-notices.txt")
     favicon_source = ROOT / "website/static/images/favicons"
     favicon_target = CLIENT / "static/images/favicons"
     for favicon_name in (

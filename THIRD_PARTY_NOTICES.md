@@ -92,3 +92,20 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
+
+## App Store badge (Apple)
+
+`website/static/images/badges/app-store-badge-ja.svg` and
+`website/static/images/badges/app-store-badge-en.svg` are the unmodified
+"Download on the App Store" black badges (Japanese and English) downloaded on
+2026-09-19 from Apple's App Store Marketing Tools
+(https://toolbox.marketingtools.apple.com/app-store/). The artwork is provided
+by Apple for promoting apps available on the App Store and may be used only as
+described in the App Store Marketing Guidelines:
+https://developer.apple.com/app-store/marketing/guidelines/
+
+Each page shows the badge once, unmodified, at 48 px height (minimum 40 px)
+with clear space of at least one-quarter of its height, linked to the app's
+App Store product page. Apple, the Apple logo, and App Store are trademarks of
+Apple Inc., registered in the U.S. and other countries; the credit line appears
+in the footer of each page that displays the badge.

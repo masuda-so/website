@@ -8,6 +8,7 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
 from website.app_documents import app_document_view
+from website.app_documents import app_product_view
 
 from .api import api
 
@@ -30,6 +31,11 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
+    path(
+        "apps/<slug:app_slug>/",
+        app_product_view,
+        name="app-page",
+    ),
     path(
         "apps/<slug:app_slug>/<slug:document>/",
         app_document_view,

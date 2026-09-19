@@ -17,6 +17,8 @@ LOGGER = logging.getLogger(__name__)
 APP_SLUGS = ("weave", "vault", "ukiyo", "grace", "still")
 APP_DOCUMENTS = ("privacy", "terms", "support")
 APP_LANGUAGES = ("en", "ja")
+# Apps with a dedicated product page at /apps/<slug>/ (and /ja/apps/<slug>/).
+PRODUCT_PAGE_SLUGS = ("grace",)
 # Pages are rendered against the real public host so absolute URLs are correct in
 # the generated files themselves. The apps embed these fixed URLs, so the host is
 # a constant rather than a build-time option.
@@ -48,6 +50,13 @@ def main() -> None:
         output_prefix = CLIENT if language == "en" else CLIENT / "ja"
         routes.extend(
             (
+                f"{prefix}/apps/{app_slug}/",
+                output_prefix / "apps" / app_slug / "index.html",
+            )
+            for app_slug in PRODUCT_PAGE_SLUGS
+        )
+        routes.extend(
+            (
                 f"{prefix}/apps/{app_slug}/{document}/",
                 output_prefix / "apps" / app_slug / document / "index.html",
             )
@@ -68,6 +77,10 @@ def main() -> None:
     )
     shutil.copy2(ROOT / "website/static/js/project.js", CLIENT / "static/js/project.js")
     shutil.copytree(ROOT / "website/static/images/apps", CLIENT / "static/images/apps")
+    shutil.copytree(
+        ROOT / "website/static/images/badges",
+        CLIENT / "static/images/badges",
+    )
     shutil.copy2(ROOT / "THIRD_PARTY_NOTICES.md", CLIENT / "third-party-notices.txt")
     favicon_source = ROOT / "website/static/images/favicons"
     favicon_target = CLIENT / "static/images/favicons"

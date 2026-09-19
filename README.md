@@ -72,6 +72,8 @@ The static build includes anonymous Privacy Policy, Terms of Use, and Support
 pages for Weave, Vault, Ukiyo, Grace, and Still at
 `/apps/<app>/privacy/`, `/apps/<app>/terms/`, and
 `/apps/<app>/support/`. Japanese versions use the same paths below `/ja/`.
+Grace, the featured app, also has a product page at `/apps/grace/` (English)
+and `/ja/apps/grace/` (Japanese).
 
 Vercel builds the static site from `main` and publishes `dist/client` to
 production. Pushes to other branches and pull requests create Preview

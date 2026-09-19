@@ -1505,3 +1505,197 @@ body.legal-page {
     flex-basis: auto;
   }
 }
+
+/* Flagship product page (/apps/<slug>/). Shares the legal-page shell. */
+.product-shell {
+  width: min(1040px, calc(100% - 40px));
+}
+
+.product-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.8fr);
+  gap: 32px 56px;
+  align-items: center;
+  padding-bottom: 44px;
+  border-bottom: 1px solid rgb(23 33 27 / 18%);
+}
+
+.product-hero h1 {
+  max-width: 850px;
+  margin: 18px 0 8px;
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+}
+
+.product-subtitle {
+  margin: 0 0 24px;
+  color: var(--coral-on-light);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.product-lead {
+  max-width: 600px;
+  margin: 0 0 28px;
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+/* Clear space around the badge is at least one-quarter of its height
+   (12px for a 48px badge); nothing else is placed inside that margin. */
+.app-store-badge {
+  display: inline-block;
+  margin: 4px 12px 12px 0;
+  line-height: 0;
+}
+
+.app-store-badge img {
+  display: block;
+  height: 48px;
+  width: auto;
+}
+
+.product-availability {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.product-figure {
+  margin: 0;
+  justify-self: center;
+  text-align: center;
+}
+
+.product-figure img {
+  display: block;
+  width: min(100%, 260px);
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid rgb(23 33 27 / 12%);
+  border-radius: 28px;
+}
+
+.product-figure figcaption {
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.product-features {
+  grid-column: 2;
+  margin: 0;
+  padding-left: 1.2em;
+  line-height: 1.85;
+}
+
+.product-features li + li {
+  margin-top: 6px;
+}
+
+.product-document .product-cta {
+  border-bottom: 0;
+}
+
+.product-store-link {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid var(--ink);
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.product-store-link:hover {
+  color: white;
+  background: var(--ink);
+}
+
+@media (max-width: 760px) {
+  .product-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .product-figure {
+    order: -1;
+  }
+
+  .product-figure img {
+    width: min(100%, 200px);
+  }
+
+  .product-features {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Flagship call to action in the home hero: a single App Store badge per layout. */
+.nexus-page .hero-flagship {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  margin: 0 0 24px;
+}
+
+.nexus-page .hero-flagship .app-store-badge {
+  margin: 0;
+}
+
+.nexus-page .hero-flagship p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.nexus-page .hero-flagship p a {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.nexus-page .app-card .app-detail-link {
+  align-self: flex-start;
+  display: inline-block;
+  padding: 16px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Apple trademark credit line, shown once per page that uses the badge. */
+.nexus-page footer .trademark-credit {
+  grid-column: 1 / -1;
+  max-width: 720px;
+  margin: 8px 0 0;
+  font-size: 11px;
+  line-height: 1.7;
+  opacity: 0.75;
+}
+
+.product-footer {
+  flex-direction: column;
+  gap: 16px;
+}
+
+.product-footer .trademark-credit {
+  max-width: 720px;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.7;
+  opacity: 0.75;
+}
+
+.product-footer > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}

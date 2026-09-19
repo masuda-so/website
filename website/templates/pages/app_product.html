@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% load static compress i18n %}
+
+{% block title %}{{ page_title }}{% endblock title %}
+{% block bodyclass %}legal-page product-page{% endblock bodyclass %}
+{# Overrides base.html to drop the Bootstrap CDN assets, which this page does not use. #}
+{% block css %}
+  {% compress css %}
+    <link href="{% static 'css/project.css' %}" rel="stylesheet" />
+  {% endcompress %}
+{% endblock css %}
+{% block javascript %}
+  {% compress js %}
+    <script defer src="{% static 'js/project.js' %}"></script>
+  {% endcompress %}
+{% endblock javascript %}
+{% block body %}
+  <a class="legal-skip-link" href="#product-content">{% if is_japanese %}本文へ移動{% else %}Skip to content{% endif %}</a>
+  <header class="legal-header">
+    <a class="legal-brand"
+       href="{% url 'home' %}"
+       aria-label="{% if is_japanese %}Ether LLC ホーム{% else %}Ether LLC home{% endif %}">
+      <img src="{% static 'images/favicons/ether.svg' %}"
+           width="38"
+           height="38"
+           alt="" />
+      <strong>ETHER LLC</strong>
+    </a>
+    <div class="legal-header-links">
+      <a class="legal-home-link" href="{{ alternate_language_url }}">{{ alternate_language_label }}</a>
+      <a class="legal-home-link" href="{% url 'home' %}#apps">{% if is_japanese %}アプリ一覧{% else %}All apps{% endif %}</a>
+    </div>
+  </header>
+  <main id="product-content" class="legal-shell product-shell" tabindex="-1">
+    <section class="product-hero" aria-labelledby="product-title">
+      <div class="product-copy">
+        <p class="legal-eyebrow">ETHER LLC / {{ app.name|upper }}</p>
+        <h1 id="product-title">{{ copy.store_name }}</h1>
+        <p class="product-subtitle">{{ copy.subtitle }}</p>
+        <p class="product-lead">{{ copy.lead }}</p>
+        {# One App Store badge per layout, black artwork, 40px minimum height, unmodified (App Store Marketing Guidelines). #}
+        <a class="app-store-badge"
+           href="{{ app_store_url }}"
+           rel="external">
+          <img src="{% static badge_image %}"
+               height="48"
+               width="{% if is_japanese %}131{% else %}144{% endif %}"
+               alt="{{ badge_alt }}" />
+        </a>
+        <p class="product-availability">{{ copy.availability }}</p>
+      </div>
+      <figure class="product-figure">
+        <img src="{% static product.screenshot %}"
+             width="1320"
+             height="2868"
+             alt="{{ screenshot_alt }}" />
+        <figcaption>{% if is_japanese %}掲載画面は使用例です。{% else %}Screen shown is an example.{% endif %}</figcaption>
+      </figure>
+    </section>
+    <article class="legal-document product-document">
+      <section>
+        <h2>{% if is_japanese %}できること{% else %}What you can do{% endif %}</h2>
+        <ul class="product-features">
+          {% for feature in copy.features %}<li>{{ feature }}</li>{% endfor %}
+        </ul>
+      </section>
+      <section>
+        <h2>{{ copy.pro_heading }}</h2>
+        {% for paragraph in copy.pro_paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+      </section>
+      <section>
+        <h2>{{ copy.privacy_heading }}</h2>
+        {% for paragraph in copy.privacy_paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+        <p>
+          <a href="{% url 'app-document' app_slug=app.slug document='privacy' %}">{% if is_japanese %}プライバシーポリシー{% else %}Privacy Policy{% endif %}</a>
+          ·
+          <a href="{% url 'app-document' app_slug=app.slug document='terms' %}">{% if is_japanese %}利用規約{% else %}Terms of Use{% endif %}</a>
+          ·
+          <a href="{% url 'app-document' app_slug=app.slug document='support' %}">{% if is_japanese %}サポート{% else %}Support{% endif %}</a>
+        </p>
+      </section>
+      <section class="product-cta">
+        <h2>{% if is_japanese %}はじめる{% else %}Get started{% endif %}</h2>
+        <p>
+          {% if is_japanese %}
+            {{ app.name }}はApp Storeから無料で入手できます。購入の復元や不具合の報告は<a href="{% url 'app-document' app_slug=app.slug document='support' %}">サポート</a>をご覧ください。
+          {% else %}
+            {{ app.name }} is available on the App Store for free. For Restore Purchases and bug reports, see <a href="{% url 'app-document' app_slug=app.slug document='support' %}">Support</a>.
+          {% endif %}
+        </p>
+        <p>
+          <a class="product-store-link"
+             href="{{ app_store_url }}"
+             rel="external">{% if is_japanese %}App Storeで{{ app.name }}を見る{% else %}View {{ app.name }} on the App Store{% endif %} <span aria-hidden="true">↗</span></a>
+        </p>
+      </section>
+    </article>
+  </main>
+  <footer class="legal-footer product-footer">
+    <p class="trademark-credit">{{ trademark_credit }}</p>
+    <div>
+      <span>© 2026 Ether LLC</span>
+      <a href="{% url 'home' %}">ether-llc.com</a>
+    </div>
+  </footer>
+{% endblock body %}

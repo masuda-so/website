@@ -135,3 +135,80 @@ def test_public_build_host_is_used_for_canonical_links(client, settings):
 )
 def test_unknown_app_documents_return_not_found(client, path):
     assert client.get(path).status_code == HTTPStatus.NOT_FOUND
+
+
+GRACE_STORE_URL = b"https://apps.apple.com/jp/app/grace-gratitude-journal/id6807439542"
+GRACE_STORE_URL_NEUTRAL = (
+    b"https://apps.apple.com/app/grace-gratitude-journal/id6807439542"
+)
+
+
+@pytest.mark.parametrize(
+    "locale_case",
+    [
+        (
+            "",
+            b'<html lang="en">',
+            b"app-store-badge-en.svg",
+            "Grace: Gratitude Journal",
+            GRACE_STORE_URL_NEUTRAL,
+        ),
+        (
+            "/ja",
+            b'<html lang="ja">',
+            b"app-store-badge-ja.svg",
+            "Grace: 感謝日記",
+            GRACE_STORE_URL,
+        ),
+    ],
+)
+def test_grace_product_page_links_to_the_app_store(client, locale_case):
+    prefix, html_language, badge, store_name, store_url = locale_case
+    response = client.get(f"{prefix}/apps/grace/")
+
+    assert response.status_code == HTTPStatus.OK
+    assert html_language in response.content
+    assert store_name.encode() in response.content
+    assert badge in response.content
+    # Exactly one badge per layout, linking to the Japanese storefront URL.
+    assert response.content.count(b'class="app-store-badge"') == 1
+    assert store_url in response.content
+    assert b'class="trademark-credit"' in response.content
+    for document in DOCUMENT_LABELS:
+        assert f"{prefix}/apps/grace/{document}/".encode() in response.content
+
+
+def test_grace_product_page_versions_are_cross_linked(client):
+    english = client.get("/apps/grace/")
+    japanese = client.get("/ja/apps/grace/")
+
+    for response in (english, japanese):
+        assert b'hreflang="en"' in response.content
+        assert b'hreflang="ja"' in response.content
+        assert b"http://testserver/apps/grace/" in response.content
+        assert b"http://testserver/ja/apps/grace/" in response.content
+    assert b'content="ja_JP"' in japanese.content
+    assert b'content="en_US"' in english.content
+
+
+def test_grace_product_page_does_not_state_prices(client):
+    response = client.get("/ja/apps/grace/")
+
+    assert "¥".encode() not in response.content
+    assert b"$" not in response.content
+
+
+def test_home_routes_visitors_to_grace(client):
+    response = client.get("/")
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.content.count(b'class="app-store-badge"') == 1
+    assert b"app-store-badge-ja.svg" in response.content
+    assert GRACE_STORE_URL in response.content
+    assert b"/ja/apps/grace/" in response.content
+    assert b'class="trademark-credit"' in response.content
+
+
+@pytest.mark.parametrize("path", ["/apps/vault/", "/ja/apps/still/", "/apps/unknown/"])
+def test_apps_without_a_product_page_return_not_found(client, path):
+    assert client.get(path).status_code == HTTPStatus.NOT_FOUND

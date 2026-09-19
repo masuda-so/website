@@ -56,6 +56,20 @@ The provenance and license of the company mark remain in `THIRD_PARTY_NOTICES.md
   The decorative CSS circles and imitation business artwork are removed.
 - Product links lead to the existing App Store URLs. Support links use the
   existing Japanese support routes. The Japanese home page remains `/`.
+- Grace is the featured app (ETH-2, 2026-09-19). The home hero carries the
+  official "Download on the App Store" badge once per page, linked to the
+  Japanese storefront, plus a link to the product page at `/ja/apps/grace/`
+  (English: `/apps/grace/`). The Grace card links to the same product page.
+- Product-page copy mirrors the App Store listing draft (ETH-5) and the app's
+  own Japanese UI terms (記録, 実績, 連続記録, 振り返り, デイリーパス/月額/年額).
+  Claims must not exceed the shipped app; prices are left to the App Store.
+  Japanese pages link to `apps.apple.com/jp`; English pages use the
+  storefront-neutral `apps.apple.com/app/...` URL.
+- Badge rules follow the App Store Marketing Guidelines
+  (https://developer.apple.com/app-store/marketing/guidelines/): black badge,
+  unmodified, 48 px tall (minimum 40 px), clear space of one-quarter its
+  height, one badge per layout, and an Apple trademark credit line once per
+  page in the footer.
 - Current work is described separately from fields listed in the articles of
   incorporation. There are no invented clients, sales, growth rates, awards, or
   production AI-organization claims.

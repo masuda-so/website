@@ -41,6 +41,26 @@ To run the tests, check your test coverage, and generate an HTML coverage report
 
     uv run pytest
 
+### Linting and template formatting
+
+Run the same hooks as the CI linter before pushing:
+
+    uv run pre-commit run --all-files
+
+If a formatter modifies files, review the diff and run the command again before
+committing. CI uses the hook versions pinned in `.pre-commit-config.yaml`, which
+are independent of the development dependencies in `pyproject.toml` and `uv.lock`.
+For example, the djLint hook currently uses `1.40.7`, while the development
+dependency uses `1.46.2`. The Django profile and JavaScript formatting options
+are configured in `[tool.djlint]` in `pyproject.toml`.
+
+The Speed Insights bootstrap in `website/templates/base.html` follows Vercel's
+[HTML integration](https://vercel.com/docs/speed-insights/quickstart): it queues
+calls through `window.si` / `window.siq` before the deferred tracking script loads.
+Let djLint format the inline JavaScript; changing whitespace does not change the
+queue behavior. The script uses Vercel's `/_vercel/speed-insights/script.js` route,
+which is provided by Vercel rather than the local Django development server.
+
 ### Live reloading and Sass CSS compilation
 
 Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/2-local-development/developing-locally.html#using-webpack-or-gulp).

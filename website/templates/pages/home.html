@@ -1,0 +1,338 @@
+{% extends "base.html" %}
+
+{% load static compress i18n %}
+
+{% block html_language %}ja{% endblock html_language %}
+{% block title %}Ether合同会社 — アイデアを、価値へ。{% endblock title %}
+{% block bodyclass %}nexus-page{% endblock bodyclass %}
+{# Overrides base.html to drop the Bootstrap CDN assets, which this page does not use. #}
+{% block css %}
+  {% compress css %}
+    <link href="{% static 'css/project.css' %}" rel="stylesheet" />
+  {% endcompress %}
+{% endblock css %}
+{% block javascript %}
+  {% compress js %}
+    <script defer src="{% static 'js/project.js' %}"></script>
+  {% endcompress %}
+{% endblock javascript %}
+{% block body %}
+  {% language "ja" %}
+    {% url 'app-document' app_slug='grace' document='support' as grace_support_url %}
+    {% url 'app-document' app_slug='vault' document='support' as vault_support_url %}
+    {% url 'app-document' app_slug='ukiyo' document='support' as ukiyo_support_url %}
+    {% url 'app-document' app_slug='still' document='support' as still_support_url %}
+    {% url 'app-document' app_slug='weave' document='support' as weave_support_url %}
+  {% endlanguage %}
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <div class="site-shell">
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="Ether合同会社 ホーム">
+        <img class="brand-mark"
+             src="{% static 'images/favicons/ether.svg' %}"
+             width="38"
+             height="38"
+             alt="" />
+        <span>ETHER
+          <br />
+        LLC</span>
+      </a>
+      <button class="menu-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="site-nav">
+        <span aria-hidden="true">&nbsp;</span><span aria-hidden="true">&nbsp;</span><span aria-hidden="true">&nbsp;</span><span class="visually-hidden">メニュー</span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="メインナビゲーション">
+        <a href="#apps">アプリ</a>
+        <a href="#about">私たちについて</a>
+        <a href="#projects">事業領域</a>
+        <a href="#impact">会社情報</a>
+        <a href="#contact" class="nav-cta">サポート <span aria-hidden="true">↓</span></a>
+      </nav>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span aria-hidden="true">&nbsp;</span> ETHER LLC / TOKYO</p>
+          <h1 id="hero-title">
+            <span class="hero-title-line">アイデアを、</span>
+            <br />
+            <em>価値へ。</em>
+          </h1>
+          <p class="hero-lead">書く、残す、ひと息つく。Ether合同会社は、日々の小さな時間を支えるiOSアプリを開発・運営しています。</p>
+          <a class="text-link" href="#apps">アプリを見る <span>↓</span></a>
+        </div>
+        <figure class="hero-products reveal" aria-label="Grace、Vault、Stillの実際のアプリ画面">
+          <img class="hero-product hero-product-back"
+               src="{% static 'images/apps/vault.jpg' %}"
+               width="1320"
+               height="2868"
+               alt="Vaultで思いついたことをノートに残す画面" />
+          <img class="hero-product hero-product-front"
+               src="{% static 'images/apps/grace.jpg' %}"
+               width="1320"
+               height="2868"
+               alt="Graceで感謝の記録を写真と振り返る画面" />
+          <img class="hero-product hero-product-side"
+               src="{% static 'images/apps/still.jpg' %}"
+               width="1320"
+               height="2868"
+               alt="Stillで休息の記録を振り返る画面" />
+          <figcaption>書く。残す。ひと息つく。</figcaption>
+        </figure>
+        <p class="scroll-note">SCROLL TO EXPLORE <span>↓</span></p>
+      </section>
+      <section id="apps" class="apps section-pad" aria-labelledby="apps-title">
+        <div class="section-label"><span>01</span> APPS BY ETHER</div>
+        <h2 id="apps-title">毎日に、<span class="app-title-phrase">ひとつの余白を。</span></h2>
+        <p class="section-intro">感謝、思いつき、写真、休息、伝えたい言葉。毎日に合うアプリを見つけてください。</p>
+        <div class="app-grid">
+          <article class="app-card" aria-labelledby="grace-title">
+            <div class="app-preview">
+              <img src="{% static 'images/apps/grace.jpg' %}"
+                   width="1320"
+                   height="2868"
+                   loading="lazy"
+                   alt="感謝の記録が並ぶGraceの画面" />
+            </div>
+            <p class="app-category">感謝の日記</p>
+            <h3 id="grace-title">Grace</h3>
+            <p class="app-tagline">感謝を、日々の記録に。</p>
+            <p>日々の小さな感謝を、文章と写真で記録。残した思い出を、いつでも振り返れます。</p>
+            <a class="text-link"
+               href="https://apps.apple.com/jp/app/grace-gratitude-journal/id6807439542"><span class="visually-hidden">Graceを</span>App Storeで見る <span aria-hidden="true">↗</span></a>
+            <a class="app-support-link"
+               href="{{ grace_support_url }}"><span class="visually-hidden">Graceの</span>サポート</a>
+          </article>
+          <article class="app-card" aria-labelledby="vault-title">
+            <div class="app-preview">
+              <img src="{% static 'images/apps/vault.jpg' %}"
+                   width="1320"
+                   height="2868"
+                   loading="lazy"
+                   alt="ノートが並ぶVaultの画面" />
+            </div>
+            <p class="app-category">自分のためのメモ</p>
+            <h3 id="vault-title">Vault</h3>
+            <p class="app-tagline">思いつきを、手元に。</p>
+            <p>思いつきや覚えておきたいことをノートに。書き留めた言葉を、検索して見つけられます。</p>
+            <a class="text-link"
+               href="https://apps.apple.com/jp/app/vault-private-notes/id6807439193"><span class="visually-hidden">Vaultを</span>App Storeで見る <span aria-hidden="true">↗</span></a>
+            <a class="app-support-link"
+               href="{{ vault_support_url }}"><span class="visually-hidden">Vaultの</span>サポート</a>
+          </article>
+          <article class="app-card" aria-labelledby="ukiyo-title">
+            <div class="app-preview">
+              <img src="{% static 'images/apps/ukiyo.jpg' %}"
+                   width="1320"
+                   height="2868"
+                   loading="lazy"
+                   alt="写真と言葉を残したUkiyoの画面" />
+            </div>
+            <p class="app-category">写真と言葉の記録</p>
+            <h3 id="ukiyo-title">Ukiyo</h3>
+            <p class="app-tagline">写真に、ひと言を。</p>
+            <p>選んだ写真に、短い言葉を添えて。お気に入りの瞬間を、自分のビジュアルジャーナルに残せます。</p>
+            <a class="text-link"
+               href="https://apps.apple.com/jp/app/ukiyo-image-stories/id6807439414"><span class="visually-hidden">Ukiyoを</span>App Storeで見る <span aria-hidden="true">↗</span></a>
+            <a class="app-support-link"
+               href="{{ ukiyo_support_url }}"><span class="visually-hidden">Ukiyoの</span>サポート</a>
+          </article>
+          <article class="app-card" aria-labelledby="still-title">
+            <div class="app-preview">
+              <img src="{% static 'images/apps/still.jpg' %}"
+                   width="1320"
+                   height="2868"
+                   loading="lazy"
+                   alt="休息の記録が並ぶStillの画面" />
+            </div>
+            <p class="app-category">静かなひと休み</p>
+            <h3 id="still-title">Still</h3>
+            <p class="app-tagline">日常に、ひと息を。</p>
+            <p>忙しい毎日に、短い休息の時間を。タイマーでひと息つき、過ごした時間を記録できます。</p>
+            <a class="text-link"
+               href="https://apps.apple.com/jp/app/still-quiet-pause/id6807433476"><span class="visually-hidden">Stillを</span>App Storeで見る <span aria-hidden="true">↗</span></a>
+            <a class="app-support-link"
+               href="{{ still_support_url }}"><span class="visually-hidden">Stillの</span>サポート</a>
+          </article>
+          <article class="app-card" aria-labelledby="weave-title">
+            <div class="app-preview">
+              <img src="{% static 'images/apps/weave.jpg' %}"
+                   width="1320"
+                   height="2868"
+                   loading="lazy"
+                   alt="下書きが並ぶWeaveの画面" />
+            </div>
+            <p class="app-category">メッセージの下書き</p>
+            <h3 id="weave-title">Weave</h3>
+            <p class="app-tagline">伝えたいことを、自分の言葉で。</p>
+            <p>伝えたいことを、まずは下書きに。自分の言葉を整えてから、共有するタイミングを選べます。</p>
+            <a class="text-link"
+               href="https://apps.apple.com/jp/app/weave-message-composer/id6807439507"><span class="visually-hidden">Weaveを</span>App Storeで見る <span aria-hidden="true">↗</span></a>
+            <a class="app-support-link"
+               href="{{ weave_support_url }}"><span class="visually-hidden">Weaveの</span>サポート</a>
+          </article>
+        </div>
+        <p class="app-availability">価格・対応機種・最新の機能は、各アプリのApp Storeページでご確認ください。掲載画面は使用例です。</p>
+      </section>
+      <section id="about" class="intro section-pad">
+        <div class="section-label reveal"><span>02</span> ABOUT ETHER</div>
+        <div class="intro-grid">
+          <h2 class="reveal">
+            テクノロジーで、
+            <br />
+            毎日を便利に。
+          </h2>
+          <div class="intro-copy reveal">
+            <p>Etherは、テクノロジーを通じて便利な世界をつくることを目指しています。日々の小さな不便に目を向け、使う人の生活に役立つプロダクトを形にします。</p>
+            <p>現在は、記録や創作、休息のためのiOSアプリを開発・運営しています。つくって終わりにせず、使いやすさと品質を少しずつ磨いていきます。</p>
+            <a class="pill-button" href="#projects">事業を見る <span>→</span></a>
+          </div>
+        </div>
+        <div class="values reveal">
+          <article><span>01</span>
+            <h3>Explore</h3>
+            <p>領域を限定せず、新しい技術と市場の可能性を探る。</p>
+          </article>
+          <article><span>02</span>
+            <h3>Create</h3>
+            <p>構想を、使われるプロダクトや体験へ落とし込む。</p>
+          </article>
+          <article><span>03</span>
+            <h3>Operate</h3>
+            <p>実装と運営の両方を見据え、事業の継続を支える。</p>
+          </article>
+        </div>
+      </section>
+      <section id="projects" class="projects section-pad">
+        <div class="section-label reveal"><span>03</span> BUSINESS AREAS</div>
+        <div class="section-heading reveal">
+          <h2>
+            いまの取り組みと、
+            <br />
+            <em>これからの可能性。</em>
+          </h2>
+          <div class="filter-group" role="group" aria-label="事業領域を絞り込む">
+            <button class="active" type="button" data-filter="all" aria-pressed="true">ALL</button>
+            <button type="button" data-filter="digital" aria-pressed="false">DIGITAL</button>
+            <button type="button" data-filter="creative" aria-pressed="false">CREATIVE</button>
+            <button type="button" data-filter="business" aria-pressed="false">BUSINESS</button>
+          </div>
+        </div>
+        <p class="filter-status" aria-live="polite" data-filter-status>4つの事業領域を表示中</p>
+        <p class="section-intro">現在はアプリの開発・運営を中心に取り組んでいます。その他は、定款に掲げる事業領域です。</p>
+        <div class="project-grid">
+          <article class="project-card reveal" data-category="digital">
+            <div class="project-meta">
+              <p>現在の取り組み</p>
+              <h3>アプリの開発・運営</h3>
+              <span>01</span>
+            </div>
+            <p class="project-description">日々の記録、創作、休息を支える5つのiOSアプリを、App Storeで配信しています。</p>
+            <a class="text-link app-store-link" href="#apps">アプリを見る <span aria-hidden="true">↑</span></a>
+          </article>
+          <article class="project-card reveal" data-category="creative">
+            <div class="project-meta">
+              <p>定款上の事業領域</p>
+              <h3>コンテンツ・文化</h3>
+              <span>02</span>
+            </div>
+            <p class="project-description">音楽・映像・出版物の企画制作、広告、イベント、教育コンテンツなど。</p>
+          </article>
+          <article class="project-card reveal" data-category="business">
+            <div class="project-meta">
+              <p>定款上の事業領域</p>
+              <h3>商品企画・コマース</h3>
+              <span>03</span>
+            </div>
+            <p class="project-description">商品企画・制作・販売・輸出入、飲食店やライブハウスなどの事業。</p>
+          </article>
+          <article class="project-card reveal" data-category="business">
+            <div class="project-meta">
+              <p>定款上の事業領域</p>
+              <h3>事業・運営支援</h3>
+              <span>04</span>
+            </div>
+            <p class="project-description">企業経営・管理業務、情報処理、物流、不動産、設備・空間に関する事業支援。</p>
+          </article>
+        </div>
+      </section>
+      <section id="impact" class="impact section-pad">
+        <div class="section-label light reveal"><span>04</span> COMPANY PROFILE</div>
+        <h2 class="reveal">会社情報</h2>
+        <div class="company-profile reveal">
+          <div class="company-profile-intro">
+            <p>LEGAL PROFILE</p>
+            <h3 id="company-profile-title">会社の基本情報</h3>
+            <span>定款に基づく基本情報を掲載しています。</span>
+          </div>
+          <dl aria-labelledby="company-profile-title">
+            <div>
+              <dt>商号</dt>
+              <dd>
+                Ether合同会社
+              </dd>
+            </div>
+            <div>
+              <dt>本店所在地</dt>
+              <dd>
+                東京都新宿区
+              </dd>
+            </div>
+            <div>
+              <dt>事業年度</dt>
+              <dd>
+                毎年4月1日から
+                <br />
+                翌年3月31日まで
+              </dd>
+            </div>
+            <div>
+              <dt>公告方法</dt>
+              <dd>
+                官報に掲載
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+      <section id="contact" class="contact section-pad">
+        <div class="contact-copy reveal">
+          <p class="eyebrow"><span aria-hidden="true">&nbsp;</span> APP SUPPORT</p>
+          <h2>
+            困ったときも、
+            <br />
+            <em>使い続けるために。</em>
+          </h2>
+          <p>使い方、購入の復元、不具合の報告は、各アプリのサポートページをご確認ください。報告先のGitHub Issuesは公開されます。非公開の記録や写真、支払い情報は投稿しないでください。</p>
+        </div>
+        <nav class="support-links" aria-label="アプリ別サポート">
+          <a href="{{ grace_support_url }}">Grace <span aria-hidden="true">→</span></a>
+          <a href="{{ vault_support_url }}">Vault <span aria-hidden="true">→</span></a>
+          <a href="{{ ukiyo_support_url }}">Ukiyo <span aria-hidden="true">→</span></a>
+          <a href="{{ still_support_url }}">Still <span aria-hidden="true">→</span></a>
+          <a href="{{ weave_support_url }}">Weave <span aria-hidden="true">→</span></a>
+        </nav>
+      </section>
+    </main>
+    <footer>
+      <div class="brand">
+        <img class="brand-mark"
+             src="{% static 'images/favicons/ether.svg' %}"
+             width="38"
+             height="38"
+             alt="" /><span>ETHER
+          <br />
+        LLC</span>
+      </div>
+      <address>Shinjuku, Tokyo
+        <br />
+      Japan</address>
+      <nav aria-label="フッターナビゲーション">
+        <a href="#about">About</a><a href="#projects">Business</a><a href="#impact">Company</a>
+      </nav>
+      <p>© 2026 Ether LLC</p>
+    </footer>
+  </div>
+{% endblock body %}

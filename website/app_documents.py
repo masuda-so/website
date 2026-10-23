@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import date
 
 from django.http import Http404
 from django.urls import reverse
@@ -20,6 +21,9 @@ class AppRecord:
     sensitive_content_ja: str
     uses_photos: bool
     issue_url: str
+    privacy_effective: date = date(2026, 7, 25)
+    terms_effective: date = date(2026, 7, 25)
+    uses_image_playground: bool = False
 
 
 APP_RECORDS = {
@@ -44,6 +48,7 @@ APP_RECORDS = {
         ),
         uses_photos=False,
         issue_url="https://github.com/masuda-so/weave/issues",
+        terms_effective=date(2026, 10, 23),
     ),
     "vault": AppRecord(
         slug="vault",
@@ -82,6 +87,9 @@ APP_RECORDS = {
         ),
         uses_photos=True,
         issue_url="https://github.com/masuda-so/ukiyo/issues",
+        privacy_effective=date(2026, 10, 23),
+        terms_effective=date(2026, 10, 23),
+        uses_image_playground=True,
     ),
     "grace": AppRecord(
         slug="grace",

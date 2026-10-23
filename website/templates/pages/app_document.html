@@ -55,7 +55,7 @@
     <article class="legal-document">
       {% if is_japanese %}
         {% if document == "privacy" %}
-          <p class="legal-date">発効日：2026年7月25日</p>
+          <p class="legal-date">発効日：{{ app.privacy_effective|date:"Y年n月j日" }}</p>
           <section>
             <h2>アプリが保存するデータ</h2>
             <p>{{ app.name }}は、{{ stored_content }}をデバイス上のローカルSwiftDataストアに保存します。本アプリには、分析SDK、広告SDK、アカウントシステム、リモートコンテンツデータベースは含まれません。</p>
@@ -65,6 +65,13 @@
               <p>{{ app.name }}は写真ライブラリと連携しません。</p>
             {% endif %}
           </section>
+          {% if app.uses_image_playground %}
+            <section>
+              <h2>Image Playground</h2>
+              <p>Proアクセスがあり、利用者が明示的にImage Playgroundを開いた場合、{{ app.name }}は選択した写真を着想元として、浮世絵・木版画風のコンセプトとともにAppleのシステムのImage Playgroundインターフェースへ渡します。Image Playgroundは新しい画像を作成するもので、選択した写真を変換するものではありません。このシステム機能とその利用可否はAppleが管理します。{{ app.name }}は、サードパーティの画像生成APIを使用せず、写真をEther LLCへ送信せず、画像生成サーバーも運用しません。</p>
+              <p>システムのインターフェースで生成結果を確認すると、{{ app.name }}はその結果を一時的に受け取ります。選択した元の写真と生成結果は、「AI画像を保存」を選んだ場合にのみ、デバイス上のローカルSwiftDataストアにそれぞれ保存されます。下書きをキャンセルまたは破棄した場合、生成結果は保存されません。</p>
+            </section>
+          {% endif %}
           <section>
             <h2>デバイス上のアシスタント</h2>
             <p>対応するAppleデバイスと言語では、アシスタントのリクエストにデバイス上のApple Foundation Modelsを使用します。{{ app.name }}は、プロンプトや生成結果をリモートAI事業者またはEther LLCへ送信しません。モデルの利用可否とシステムレベルの診断は、OSおよび適用されるAppleの条件に従います。</p>
@@ -75,7 +82,7 @@
           </section>
           <section>
             <h2>保持と削除</h2>
-            <p>ローカルコンテンツは、{{ app.name }}内で削除するか、アプリを削除するか、デバイスを消去するまでデバイス上に残ります。項目を削除すると、アプリのローカルストアから削除されます。StoreKitの取引履歴はAppleのポリシーに従ってAppleが保持します。</p>
+            <p>ローカルコンテンツ{% if app.uses_image_playground %}（明示的に保存した元の写真と生成画像を含む）{% endif %}は、{{ app.name }}内で削除するか、アプリを削除するか、デバイスを消去するまでデバイス上に残ります。項目を削除すると、アプリのローカルストアから削除されます。StoreKitの取引履歴はAppleのポリシーに従ってAppleが保持します。</p>
           </section>
           <section>
             <h2>お問い合わせ</h2>
@@ -83,16 +90,18 @@
             <p>{{ app.name }}に新しいデータ利用が追加された場合、本ポリシーを変更することがあります。その際は上記の発効日を更新します。</p>
           </section>
         {% elif document == "terms" %}
-          {% if app.slug == "weave" %}<p class="legal-date">2026-09-12</p>{% else %}
-            <p class="legal-date">発効日：2026年7月25日</p>{% endif %}
+          <p class="legal-date">発効日：{{ app.terms_effective|date:"Y年n月j日" }}</p>
           <section>
             <h2>{{ app.name }}の利用</h2>
             <p>{{ app.name }}は、個人的かつ適法な目的で利用できます。作成したコンテンツ、およびアシスタントの出力を信頼、共有、利用する前の確認については、利用者が責任を負います。</p>
+            {% if app.uses_image_playground %}
+              <p>Image Playgroundの結果は、選択した写真を着想元としてAIが新たに作成した画像であり、その写真を変換したものではありません。選択した写真を利用する権利を有していること、および生成結果を保存または共有する前に確認することについては、利用者が責任を負います。</p>
+            {% endif %}
             <p>{{ app.name }}とデバイス上のアシスタントは、医療、メンタルヘルス、法律、金融、緊急対応のサービスを提供しません。生成結果は不完全または不正確な場合があります。資格を有する専門家の助言の代わりとして使用しないでください。</p>
           </section>
           <section>
             <h2>Proプラン</h2>
-            <p>{% if app.slug == "weave" %}7-Day Pass（7日間パス）は非更新型のアプリ内課金で、検証済みの購入日時から7日間Proアクセスを提供します。{% else %}Daily Passは非更新型のアプリ内課金で、検証済みの購入日時から24時間Proアクセスを提供します。{% endif %}自動更新されません。</p>
+            <p>Daily Passは非更新型のアプリ内課金で、検証済みの購入日時から24時間Proアクセスを提供します。自動更新されません。</p>
             <p>MonthlyとYearlyは自動更新サブスクリプションです。購入確認後、Apple Accountに課金されます。現在の期間が終了する24時間以上前に解約しない限り、サブスクリプションは更新されます。Apple Accountのサブスクリプション設定から管理または解約できます。購入時にApp Storeに表示される価格と請求期間が適用されます。</p>
             <p>
               購入には、Appleの
@@ -103,7 +112,7 @@
           </section>
           <section>
             <h2>利用可能性と保証</h2>
-            <p>Apple Foundation Modelsに依存する機能には、対応デバイス、OSのバージョン、言語、モデルが利用可能であることが必要です。{{ app.name }}は、法律で認められる範囲において現状有姿で提供され、すべての機能が常に利用可能または無停止であることを保証しません。</p>
+            <p>{% if app.uses_image_playground %}Apple Foundation ModelsまたはImage Playgroundに依存する機能には、対応デバイス、OSのバージョン、言語、地域、および該当するシステムモデルが利用可能であることが必要です。{% else %}Apple Foundation Modelsに依存する機能には、対応デバイス、OSのバージョン、言語、モデルが利用可能であることが必要です。{% endif %}{{ app.name }}は、法律で認められる範囲において現状有姿で提供され、すべての機能が常に利用可能または無停止であることを保証しません。</p>
           </section>
           <section>
             <h2>変更とお問い合わせ</h2>
@@ -132,7 +141,7 @@
         {% endif %}
       {% else %}
         {% if document == "privacy" %}
-          <p class="legal-date">Effective date: July 25, 2026</p>
+          <p class="legal-date">Effective date: {{ app.privacy_effective|date:"F j, Y" }}</p>
           <section>
             <h2>Data stored by the app</h2>
             <p>{{ app.name }} stores {{ stored_content }} in its local SwiftData store on your device. The app does not include an analytics SDK, advertising SDK, account system, or remote content database.</p>
@@ -142,6 +151,13 @@
               <p>{{ app.name }} does not integrate with your photo library.</p>
             {% endif %}
           </section>
+          {% if app.uses_image_playground %}
+            <section>
+              <h2>Image Playground</h2>
+              <p>If you have Pro access and explicitly open Image Playground, {{ app.name }} provides the selected photo as visual inspiration, together with an ukiyo-e/woodblock-inspired concept, to Apple’s system Image Playground interface. Image Playground creates a new image; it does not transform the selected photo. Apple controls that system feature and its availability. {{ app.name }} does not use a third-party image-generation API, send the photo to Ether LLC, or operate an image-generation server.</p>
+              <p>After you review a generated result in the system interface, {{ app.name }} temporarily receives that result. The app stores the selected source photo and generated result separately in its local SwiftData store only when you choose Save AI Image. Cancelling or discarding the draft does not save the generated result.</p>
+            </section>
+          {% endif %}
           <section>
             <h2>On-device assistant</h2>
             <p>On supported Apple devices and languages, assistant requests use Apple Foundation Models on device. {{ app.name }} does not send prompts or generated responses to a remote AI provider or to Ether LLC. Model availability and system-level diagnostics are controlled by the operating system and Apple’s applicable terms.</p>
@@ -152,7 +168,7 @@
           </section>
           <section>
             <h2>Retention and deletion</h2>
-            <p>Local content remains on the device until you delete it in {{ app.name }}, remove the app, or erase the device. Deleting an item removes it from the app’s local store. StoreKit transaction history is retained by Apple under Apple’s policies.</p>
+            <p>Local content{% if app.uses_image_playground %}, including any explicitly saved source and generated images,{% endif %} remains on the device until you delete it in {{ app.name }}, remove the app, or erase the device. Deleting an item removes it from the app’s local store. StoreKit transaction history is retained by Apple under Apple’s policies.</p>
           </section>
           <section>
             <h2>Contact</h2>
@@ -160,16 +176,18 @@
             <p>This policy may change when {{ app.name }} adds a new data practice. The effective date above will be updated when that happens.</p>
           </section>
         {% elif document == "terms" %}
-          {% if app.slug == "weave" %}<p class="legal-date">2026-09-12</p>{% else %}
-            <p class="legal-date">Effective date: July 25, 2026</p>{% endif %}
+          <p class="legal-date">Effective date: {{ app.terms_effective|date:"F j, Y" }}</p>
           <section>
             <h2>Using {{ app.name }}</h2>
             <p>You may use {{ app.name }} for personal, lawful purposes. You are responsible for the content you create and for reviewing any assistant output before relying on, sharing, or acting on it.</p>
+            {% if app.uses_image_playground %}
+              <p>Image Playground results are new AI-generated creative images that use a selected photo as visual inspiration; they are not transformed versions of that photo. You are responsible for having the rights to use selected photos and for reviewing generated results before saving or sharing them.</p>
+            {% endif %}
             <p>{{ app.name }} and its on-device assistant do not provide medical, mental-health, legal, financial, or emergency services. Generated output may be incomplete or incorrect. Do not use the app as a substitute for qualified professional advice.</p>
           </section>
           <section>
             <h2>Pro plans</h2>
-            <p>{% if app.slug == "weave" %}The 7-Day Pass is a non-renewing in-app purchase that provides 7 days of Pro access from its verified purchase date.{% else %}The Daily Pass is a non-renewing in-app purchase that provides 24 hours of Pro access from its verified purchase date.{% endif %} It does not renew automatically.</p>
+            <p>The Daily Pass is a non-renewing in-app purchase that provides 24 hours of Pro access from its verified purchase date. It does not renew automatically.</p>
             <p>Monthly and Yearly are auto-renewable subscriptions. Payment is charged to your Apple Account after confirmation. A subscription renews unless you cancel it at least 24 hours before the end of the current period. You can manage or cancel it in your Apple Account subscription settings. The price and billing period shown by the App Store at purchase time control.</p>
             <p>
               Purchases are also subject to Apple’s
@@ -180,7 +198,7 @@
           </section>
           <section>
             <h2>Availability and warranties</h2>
-            <p>Features that depend on Apple Foundation Models require a supported device, operating-system version, language, and model availability. {{ app.name }} is provided “as is” to the extent permitted by law, without a promise that every feature will always be available or error-free.</p>
+            <p>{% if app.uses_image_playground %}Features that depend on Apple Foundation Models or Image Playground require a supported device, operating-system version, language, region, and applicable system-model availability.{% else %}Features that depend on Apple Foundation Models require a supported device, operating-system version, language, and model availability.{% endif %} {{ app.name }} is provided “as is” to the extent permitted by law, without a promise that every feature will always be available or error-free.</p>
           </section>
           <section>
             <h2>Changes and contact</h2>

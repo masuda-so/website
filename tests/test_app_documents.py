@@ -63,6 +63,31 @@ def test_photo_privacy_is_app_specific(client):
     assert b"system picker gives the app only the item you select" in ukiyo.content
 
 
+def test_weave_daily_pass_matches_the_other_apps(client):
+    english = client.get("/apps/weave/terms/")
+    japanese = client.get("/ja/apps/weave/terms/")
+
+    assert b"provides 24 hours of Pro access" in english.content
+    assert b"Effective date: October 25, 2026" in english.content
+    assert b"7-Day" not in english.content
+    assert "24時間Proアクセスを提供します".encode() in japanese.content
+    assert "2026年10月25日".encode() in japanese.content
+    assert "7日間".encode() not in japanese.content
+
+
+def test_image_playground_is_disclosed_only_for_ukiyo(client):
+    for path in ("/apps/ukiyo/privacy/", "/apps/ukiyo/terms/"):
+        assert b"Image Playground" in client.get(path).content
+        assert b"Image Playground" in client.get(f"/ja{path}").content
+    ukiyo = client.get("/apps/ukiyo/privacy/")
+    assert b"only when you choose Save AI Image" in ukiyo.content
+    assert b"Effective date: October 25, 2026" in ukiyo.content
+    assert b"Image Playground" not in client.get("/apps/grace/privacy/").content
+    assert b"Effective date: July 25, 2026" in (
+        client.get("/apps/grace/privacy/").content
+    )
+
+
 def test_vault_copy_matches_implemented_search(client):
     response = client.get("/apps/vault/privacy/")
 

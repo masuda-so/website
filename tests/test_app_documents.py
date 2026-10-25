@@ -68,10 +68,10 @@ def test_weave_daily_pass_matches_the_other_apps(client):
     japanese = client.get("/ja/apps/weave/terms/")
 
     assert b"provides 24 hours of Pro access" in english.content
-    assert b"Effective date: October 23, 2026" in english.content
+    assert b"Effective date: October 25, 2026" in english.content
     assert b"7-Day" not in english.content
     assert "24時間Proアクセスを提供します".encode() in japanese.content
-    assert "2026年10月23日".encode() in japanese.content
+    assert "2026年10月25日".encode() in japanese.content
     assert "7日間".encode() not in japanese.content
 
 
@@ -81,7 +81,7 @@ def test_image_playground_is_disclosed_only_for_ukiyo(client):
         assert b"Image Playground" in client.get(f"/ja{path}").content
     ukiyo = client.get("/apps/ukiyo/privacy/")
     assert b"only when you choose Save AI Image" in ukiyo.content
-    assert b"Effective date: October 23, 2026" in ukiyo.content
+    assert b"Effective date: October 25, 2026" in ukiyo.content
     assert b"Image Playground" not in client.get("/apps/grace/privacy/").content
     assert b"Effective date: July 25, 2026" in (
         client.get("/apps/grace/privacy/").content

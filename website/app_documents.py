@@ -48,7 +48,7 @@ APP_RECORDS = {
         ),
         uses_photos=False,
         issue_url="https://github.com/masuda-so/weave/issues",
-        terms_effective=date(2026, 10, 23),
+        terms_effective=date(2026, 10, 25),
     ),
     "vault": AppRecord(
         slug="vault",
@@ -87,8 +87,8 @@ APP_RECORDS = {
         ),
         uses_photos=True,
         issue_url="https://github.com/masuda-so/ukiyo/issues",
-        privacy_effective=date(2026, 10, 23),
-        terms_effective=date(2026, 10, 23),
+        privacy_effective=date(2026, 10, 25),
+        terms_effective=date(2026, 10, 25),
         uses_image_playground=True,
     ),
     "grace": AppRecord(

@@ -24,6 +24,8 @@ The repository manages a Django application and a static public site. Product pr
 
 See the [Cookiecutter Django settings guide](https://cookiecutter-django.readthedocs.io/en/latest/1-getting-started/settings.html).
 
+Set the database with `DATABASE_URL`, or with `POSTGRES_DB`, `POSTGRES_USER`, and `POSTGRES_PASSWORD` (plus `POSTGRES_HOST` and `POSTGRES_PORT` when needed). pytest and mypy also need it.
+
 ### Basic Commands
 
 #### Setting Up Your Users

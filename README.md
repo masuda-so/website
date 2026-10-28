@@ -21,6 +21,8 @@ Djangoによるアプリケーションと静的な公開サイトを管理し�
 
 [Cookiecutter Djangoの設定ガイド](https://cookiecutter-django.readthedocs.io/en/latest/1-getting-started/settings.html)を参照してください。
 
+データベースは`DATABASE_URL`、または`POSTGRES_DB`・`POSTGRES_USER`・`POSTGRES_PASSWORD`(必要に応じて`POSTGRES_HOST`・`POSTGRES_PORT`)で指定します。pytestとmypyの実行にも必要です。
+
 ### 基本的なコマンド
 
 #### ユーザーの作成

@@ -40,7 +40,6 @@ def main() -> None:
     (CLIENT / "static" / "css").mkdir(parents=True)
     (CLIENT / "static" / "js").mkdir(parents=True)
     (CLIENT / "static" / "images" / "favicons").mkdir(parents=True)
-    (DIST / "server").mkdir(parents=True)
 
     routes = [("/", CLIENT / "index.html")]
     for language in APP_LANGUAGES:
@@ -82,47 +81,6 @@ def main() -> None:
     shutil.copy2(favicon_source / "favicon.ico", CLIENT / "favicon.ico")
     shutil.copy2(ROOT / "website/static/images/og.png", CLIENT / "static/images/og.png")
 
-    worker = """function pageAssetPath(pathname) {
-  if (pathname === \"/\" || pathname === \"/index.html\") return \"/index.html\";
-  if (pathname.endsWith(\"/\")) return `${pathname}index.html`;
-  const finalSegment = pathname.split(\"/\").at(-1);
-  if (finalSegment && !finalSegment.includes(\".\")) return `${pathname}/index.html`;
-  return pathname;
-}
-
-async function renderPage(request, env, url, pathname = url.pathname) {
-  const assetUrl = new URL(pageAssetPath(pathname), url);
-  const response = await env.ASSETS.fetch(new Request(assetUrl, request));
-  if (!response.ok) return response;
-
-  const headers = new Headers(response.headers);
-  headers.delete(\"content-length\");
-  headers.delete(\"content-encoding\");
-  headers.delete(\"etag\");
-  headers.set(\"content-type\", \"text/html; charset=utf-8\");
-  headers.set(\"cache-control\", \"public, max-age=300\");
-  const html = (await response.text()).replaceAll(\"http://testserver\", url.origin);
-  return new Response(html, { status: response.status, headers });
-}
-
-const worker = {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    const pagePath = pageAssetPath(url.pathname);
-    if (pagePath !== url.pathname || url.pathname.endsWith(\"/index.html\")) {
-      return renderPage(request, env, url);
-    }
-    const response = await env.ASSETS.fetch(request);
-    if (response.status !== 404) return response;
-    if (url.pathname.startsWith(\"/apps/\") || url.pathname.startsWith(\"/ja/apps/\")) {
-      return response;
-    }
-    return renderPage(request, env, url, \"/\");
-  },
-};
-export default worker;
-"""
-    (DIST / "server/index.js").write_text(worker, encoding="utf-8")
     LOGGER.info("Built Ether site in %s", DIST)
 
 

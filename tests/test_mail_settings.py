@@ -42,6 +42,7 @@ def test_settings_create_mailers_without_deprecations(profile, override, backend
     env.update(
         DJANGO_SETTINGS_MODULE=f"config.settings.{profile}",
         DJANGO_READ_DOT_ENV_FILE="False",
+        DATABASE_URL="postgres:///website",
         DJANGO_SECRET_KEY="test-only-mail-settings-key",  # noqa: S106 - Test fixture.
         DJANGO_ADMIN_URL="test-admin/",
         DJANGO_AWS_ACCESS_KEY_ID="test-only-access-key",

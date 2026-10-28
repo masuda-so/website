@@ -44,7 +44,9 @@ uv run python manage.py check --settings=config.settings.test
 uv run python scripts/build_sites_static.py
 ```
 
-The full tests require PostgreSQL and the test settings' environment. The static
+The full tests require PostgreSQL. Settings read the database from
+`DATABASE_URL`, or from the `POSTGRES_*` variables when it is unset, as the
+Cookiecutter Django template does; pytest and mypy need one of them. The static
 export uses its own build settings and does not require production credentials.
 Moving `scripts/merge_production_dotenvs.py` preserves its repository-relative
 input and output locations; run it only when intentionally creating a local

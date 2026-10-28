@@ -33,8 +33,9 @@ Do not copy generated exports or third-party dependencies into application sourc
 
 ## Verification
 
-Run `uv sync --locked`, then the local development checks below. CI runs the
-test suite only, as described in the Continuous integration section:
+Run `uv sync --locked`, then the local development checks below. CI runs
+pre-commit, the migration check, and the tests, as described in the Continuous
+integration section:
 
 ```sh
 uv run pre-commit run --all-files
@@ -154,90 +155,26 @@ unrelated templates or unused tooling remain in the product README.
 
 ## Git workflow
 
-Follow the [Git commit guidelines](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project):
-keep each commit focused on one logical change, including its necessary tests,
-configuration, and documentation. Separate unrelated fixes, formatting, and
-localization metadata. Use a concise imperative subject (aim for about 50
-characters), a blank line, and a body explaining the problem and resulting
-behavior, wrapped at about 72 characters. Run `git diff --check` and the relevant
-checks before publishing; report any validation limits accurately.
-
-Use the configured signing identity and verify signatures locally and on GitHub.
-Preserve truthful authorship and timestamps. Add attribution, review, or sign-off
-trailers only when their meaning is justified; they are not substitutes for a
-cryptographic signature. Git's own submission-specific requirements do not
-become mandatory rules for these repositories.
-
-Before publishing substantial changes, preserve the previous branch tip and a
-verified Git bundle; also save uncommitted files when applicable. Prefer
-fast-forward updates and signed revert commits for rollback. Rewrite published
-history only when explicitly authorized. Verify the remote commit IDs, content,
-metadata, signatures, and available CI results after pushing.
-
-- [Git bundle backups](https://git-scm.com/docs/git-bundle)
-- [GitHub signature verification](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification)
+Follow Git's
+[guidelines for contributing to a project](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project).
 
 ## Continuous integration
 
-`.github/workflows/ci.yml` uses GitHub's official
-[django starter workflow](https://github.com/actions/starter-workflows/blob/e3c451d60f119b71caebf13c98ac45da6e15b4b7/ci/django.yml).
-The recorded upstream revision is `e3c451d60f119b71caebf13c98ac45da6e15b4b7`.
-Workflow templates are meant to be adapted ("Optionally, make additional
-changes"), so the template's shape, names, and steps are kept and only what
-this project needs is changed. Besides the two `$default-branch` placeholders,
-which are replaced with `main`:
+`.github/workflows/ci.yml` is the `ci.yml` that
+[Cookiecutter Django](https://github.com/cookiecutter/cookiecutter-django)
+generates with GitHub Actions selected, recorded at revision
+`33aca01`. It runs pre-commit, `makemigrations --check`, `migrate`, and
+pytest against a `postgres:18` service container. Only two things differ from
+the generated file:
 
-- The Python matrix is `"3.14"`, the version `pyproject.toml` requires
-  (`requires-python = "==3.14.*"`). The template's 3.7 to 3.9 cannot install
-  the project, and 3.7 is no longer offered on the runner. The version is
-  quoted so YAML does not read it as a number.
-- Dependencies come from `pyproject.toml` and `uv.lock` through
-  `astral-sh/setup-uv` and `uv sync --locked`, as uv's GitHub Actions guide
-  shows. The template's `requirements.txt` does not exist here.
-- A `postgres:18` service container with GitHub's documented health check
-  provides the test database through `DATABASE_URL`.
-- Tests run with `uv run pytest`, which applies the pytest configuration
-  (`--ds=config.settings.test`). `python manage.py test` discovers none of
-  the existing pytest tests ("Ran 0 tests").
 - A top-level `permissions: contents: read` block limits the workflow token to
   read access, as CodeQL's `actions/missing-workflow-permissions` query asks.
+- Action references are pinned to full commit SHAs with the version in a
+  comment, as GitHub's security hardening guide recommends. Dependabot keeps
+  them current, so the versions can be newer than the template's.
 
-Pre-commit, mypy, migration checks, and the static export remain local checks
-listed under Verification.
-
-- [Using workflow templates](https://docs.github.com/en/actions/how-tos/write-workflows/use-workflow-templates)
-- [Using uv in GitHub Actions](https://docs.astral.sh/uv/guides/integration/github/)
-- [Creating PostgreSQL service containers](https://docs.github.com/en/actions/tutorials/use-containerized-services/create-postgresql-service-containers)
-
-<details>
-<summary>GitHub starter workflow license</summary>
-
-```text
-MIT License
-
-Copyright (c) 2020 GitHub
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE. THIS LICENSE DOES NOT GRANT YOU RIGHTS TO USE ANY CONTRIBUTORS'
-NAME, LOGO, OR TRADEMARKS.
-```
-
-</details>
+- [Cookiecutter Django GitHub Actions template](https://github.com/cookiecutter/cookiecutter-django/blob/33aca01e5a46c5cf8eb9e405ce133452ba387595/%7B%7Bcookiecutter.project_slug%7D%7D/.github/workflows/ci.yml)
+- [Security hardening for GitHub Actions](https://docs.github.com/en/actions/reference/security/secure-use#using-third-party-actions)
 
 ## Dependency updates
 

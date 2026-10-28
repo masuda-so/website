@@ -1,0 +1,11 @@
+{
+  "name": "website",
+  "compatibility_date": "2026-10-28",
+  "build": {
+    "command": "uv sync --locked --no-dev --no-install-package psycopg --no-install-package psycopg-c && DATABASE_URL=sqlite:////tmp/ether-sites-build.sqlite DJANGO_SETTINGS_MODULE=config.settings.test .venv/bin/python scripts/build_sites_static.py"
+  },
+  "assets": {
+    "directory": "./dist/client",
+    "html_handling": "force-trailing-slash"
+  }
+}

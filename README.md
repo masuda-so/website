@@ -58,8 +58,6 @@ push前にリポジトリのフックを実行します。
 
 整形でファイルが変わった場合は差分を確認し、コミット前に再実行してください。フックのバージョンは`.pre-commit-config.yaml`で固定され、`pyproject.toml`と`uv.lock`の開発依存関係とは別に管理されています。現在のバージョンは各設定ファイルで確認してください。DjangoプロファイルとJavaScript整形の設定は`pyproject.toml`の`[tool.djlint]`にあります。
 
-`website/templates/base.html`のSpeed Insights初期化処理は、Vercelの[HTML向け手順](https://vercel.com/docs/speed-insights/quickstart)に沿い、遅延読み込みのスクリプトが動く前に`window.si` / `window.siq`へ呼び出しを蓄積します。インラインJavaScriptの整形はdjLintに任せてください。空白の変更ではキューの動作は変わりません。`/_vercel/speed-insights/script.js`はVercelが提供するパスで、ローカルのDjango開発サーバーが提供するものではありません。
-
 ### デプロイ
 
 実際の認証情報やデプロイ設定をGitに含めないでください。ローカルファイルが必要な場合は、追跡済みのサンプルをコピーします。
@@ -80,7 +78,9 @@ Djangoを本番運用する場合は、`.envs/.production/*.example`の変数を
 
 静的サイトには、Weave・Vault・Ukiyo・Grace・Stillの未ログインで閲覧できるページを含みます。パスは`/apps/<app>/privacy/`、`/apps/<app>/terms/`、`/apps/<app>/support/`です。日本語版は`/ja/`の下に同じパスを配置します。
 
-Vercelは`main`から静的サイトをビルドし、`dist/client`を本番公開します。他のブランチへのpushやPRではPreviewデプロイを作成します。ビルド設定は`vercel.json`で管理し、Vercelのトークンや本番Djangoの認証情報はGitに含めません。
+現在の本番はVercelで、`main`から静的サイトをビルドし、`dist/client`を公開します。他のブランチへのpushやPRではPreviewデプロイを作成します。ビルド設定は`vercel.json`で管理します。
+
+Cloudflare Workers(Static Assets)への移行を準備中です。`wrangler.jsonc`は同じビルドを`build.command`で実行し、`dist/client`を静的アセットとして配信する設定です。ローカルでは`npx wrangler dev`で確認できます。本番の切り替えが済むまでは`vercel.json`も残します。VercelやCloudflareのトークン、本番Djangoの認証情報はGitに含めません。
 
 Djangoアプリケーション全体を起動する場合は、本番用サンプルの変数に加え、`DATABASE_URL`を設定してください。
 

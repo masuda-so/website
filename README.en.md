@@ -67,13 +67,6 @@ Check these configuration files for the current versions.
 The Django profile and JavaScript formatting options
 are configured in `[tool.djlint]` in `pyproject.toml`.
 
-The Speed Insights bootstrap in `website/templates/base.html` follows Vercel's
-[HTML integration](https://vercel.com/docs/speed-insights/quickstart): it queues
-calls through `window.si` / `window.siq` before the deferred tracking script loads.
-Let djLint format the inline JavaScript; changing whitespace does not change the
-queue behavior. The script uses Vercel's `/_vercel/speed-insights/script.js` route,
-which is provided by Vercel rather than the local Django development server.
-
 ### Deployment
 
 Real credentials and deployment configuration must not be committed to this repository. Copy the tracked examples when a local file is needed:
@@ -97,10 +90,15 @@ pages for Weave, Vault, Ukiyo, Grace, and Still at
 `/apps/<app>/privacy/`, `/apps/<app>/terms/`, and
 `/apps/<app>/support/`. Japanese versions use the same paths below `/ja/`.
 
-Vercel builds the static site from `main` and publishes `dist/client` to
-production. Pushes to other branches and pull requests create Preview
-deployments. The versioned build contract is in `vercel.json`; no Vercel token
-or production Django credentials belong in Git.
+Production currently runs on Vercel, which builds the static site from `main`
+and publishes `dist/client`. Pushes to other branches and pull requests create
+Preview deployments. The Vercel build settings are in `vercel.json`.
+
+A move to Cloudflare Workers (Static Assets) is in preparation. `wrangler.jsonc`
+runs the same build through `build.command` and serves `dist/client` as static
+assets; run `npx wrangler dev` to check it locally. `vercel.json` stays until
+production has switched over. No Vercel or Cloudflare token or production
+Django credentials belong in Git.
 
 For the full Django application, set `DATABASE_URL` along with the variables in the production examples before starting the application.
 

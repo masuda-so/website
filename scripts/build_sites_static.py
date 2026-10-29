@@ -21,6 +21,17 @@ APP_LANGUAGES = ("en", "ja")
 # the generated files themselves. The apps embed these fixed URLs, so the host is
 # a constant rather than a build-time option.
 SITE_HOST = "ether-llc.com"
+# The pages load only their own scripts, stylesheets and images, plus Google
+# Fonts, and use no inline scripts or style attributes.
+CONTENT_SECURITY_POLICY = (
+    "default-src 'self'; "
+    "style-src 'self' https://fonts.googleapis.com; "
+    "font-src https://fonts.gstatic.com; "
+    "object-src 'none'; "
+    "base-uri 'self'; "
+    "form-action 'self'; "
+    "frame-ancestors 'none'"
+)
 
 
 def main() -> None:
@@ -73,6 +84,17 @@ def main() -> None:
     )
     (CLIENT / "robots.txt").write_text(
         f"User-agent: *\nAllow: /\n\nSitemap: https://{SITE_HOST}/sitemap.xml\n",
+        encoding="utf-8",
+    )
+    # Cloudflare Workers Static Assets reads this file and applies the headers;
+    # it is not served as an asset. Vercel does not read it.
+    (CLIENT / "_headers").write_text(
+        "/*\n"
+        f"  Content-Security-Policy: {CONTENT_SECURITY_POLICY}\n"
+        "  Strict-Transport-Security: max-age=63072000\n"
+        "  X-Content-Type-Options: nosniff\n"
+        "  X-Frame-Options: DENY\n"
+        "  Referrer-Policy: strict-origin-when-cross-origin\n",
         encoding="utf-8",
     )
     shutil.copy2(

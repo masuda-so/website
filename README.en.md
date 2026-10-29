@@ -98,7 +98,12 @@ Preview deployments. The Vercel build settings are in `vercel.json`.
 
 A move to Cloudflare Workers (Static Assets) is in preparation. `wrangler.jsonc`
 runs the same build through `build.command` and serves `dist/client` as static
-assets; run `npx wrangler dev` to check it locally. `vercel.json` stays until
+assets; run `npx wrangler dev` to check it locally. Workers Builds does
+not run `build.command`, so set the same command as the dashboard's Build
+command and set the build variable `SKIP_DEPENDENCY_INSTALL=1` to turn off
+automatic dependency installation. The build also writes
+`dist/client/_headers` with the security headers; Cloudflare applies it, and
+Vercel does not read it. `vercel.json` stays until
 production has switched over. No Vercel or Cloudflare token or production
 Django credentials belong in Git.
 

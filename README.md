@@ -80,7 +80,7 @@ Djangoを本番運用する場合は、`.envs/.production/*.example`の変数を
 
 現在の本番はVercelで、`main`から静的サイトをビルドし、`dist/client`を公開します。他のブランチへのpushやPRではPreviewデプロイを作成します。ビルド設定は`vercel.json`で管理します。
 
-Cloudflare Workers(Static Assets)への移行を準備中です。`wrangler.jsonc`は同じビルドを`build.command`で実行し、`dist/client`を静的アセットとして配信する設定です。ローカルでは`npx wrangler dev`で確認できます。本番の切り替えが済むまでは`vercel.json`も残します。VercelやCloudflareのトークン、本番Djangoの認証情報はGitに含めません。
+Cloudflare Workers(Static Assets)への移行を準備中です。`wrangler.jsonc`は同じビルドを`build.command`で実行し、`dist/client`を静的アセットとして配信する設定です。ローカルでは`npx wrangler dev`で確認できます。Workers Buildsは`build.command`を実行しないため、ダッシュボードのBuild commandに同じコマンドを設定し、ビルド変数`SKIP_DEPENDENCY_INSTALL=1`で自動の依存インストールを止めます。ビルドはセキュリティヘッダーを指定する`dist/client/_headers`も生成します。Cloudflareはこのファイルを読んでヘッダーを付け、Vercelは読みません。本番の切り替えが済むまでは`vercel.json`も残します。VercelやCloudflareのトークン、本番Djangoの認証情報はGitに含めません。
 
 Djangoアプリケーション全体を起動する場合は、本番用サンプルの変数に加え、`DATABASE_URL`を設定してください。
 

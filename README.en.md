@@ -89,6 +89,8 @@ The static build includes anonymous Privacy Policy, Terms of Use, and Support
 pages for Weave, Vault, Ukiyo, Grace, and Still at
 `/apps/<app>/privacy/`, `/apps/<app>/terms/`, and
 `/apps/<app>/support/`. Japanese versions use the same paths below `/ja/`.
+The build also writes `/sitemap.xml`, which lists these 31 pages, and
+`/robots.txt`, which points to it.
 
 Production currently runs on Vercel, which builds the static site from `main`
 and publishes `dist/client`. Pushes to other branches and pull requests create

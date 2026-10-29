@@ -76,7 +76,7 @@ Djangoを本番運用する場合は、`.envs/.production/*.example`の変数を
 
     uv run python scripts/build_sites_static.py
 
-静的サイトには、Weave・Vault・Ukiyo・Grace・Stillの未ログインで閲覧できるページを含みます。パスは`/apps/<app>/privacy/`、`/apps/<app>/terms/`、`/apps/<app>/support/`です。日本語版は`/ja/`の下に同じパスを配置します。
+静的サイトには、Weave・Vault・Ukiyo・Grace・Stillの未ログインで閲覧できるページを含みます。パスは`/apps/<app>/privacy/`、`/apps/<app>/terms/`、`/apps/<app>/support/`です。日本語版は`/ja/`の下に同じパスを配置します。ビルドはこれら31ページを列挙した`/sitemap.xml`と、その場所を示す`/robots.txt`も生成します。
 
 現在の本番はVercelで、`main`から静的サイトをビルドし、`dist/client`を公開します。他のブランチへのpushやPRではPreviewデプロイを作成します。ビルド設定は`vercel.json`で管理します。
 

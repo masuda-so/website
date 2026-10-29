@@ -61,6 +61,20 @@ def main() -> None:
             raise RuntimeError(message)
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_bytes(response.content)
+    sitemap_entries = "".join(
+        f"  <url><loc>https://{SITE_HOST}{route}</loc></url>\n" for route, _ in routes
+    )
+    (CLIENT / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"{sitemap_entries}"
+        "</urlset>\n",
+        encoding="utf-8",
+    )
+    (CLIENT / "robots.txt").write_text(
+        f"User-agent: *\nAllow: /\n\nSitemap: https://{SITE_HOST}/sitemap.xml\n",
+        encoding="utf-8",
+    )
     shutil.copy2(
         ROOT / "website/static/css/project.css",
         CLIENT / "static/css/project.css",

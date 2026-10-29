@@ -377,5 +377,6 @@ vite.config.ts.timestamp-*
 .envs/.production/*
 !.envs/.production/*.example
 .vercel/
+.wrangler/
 website/media/
 staticfiles/

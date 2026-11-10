@@ -1,10 +1,18 @@
 # Third-Party Notices
 
-The `.visually-hidden` accessibility helper in
-`website/static/css/project.css` is adapted from Bootstrap 5.2.3.
+## Bootstrap
 
-Copyright (c) 2011-2022 Twitter, Inc.
-Copyright (c) 2011-2022 The Bootstrap Authors
+Source: https://github.com/twbs/bootstrap
+
+The site loads Bootstrap 5.3.8 (`bootstrap.min.css` and
+`bootstrap.bundle.min.js`, which includes Popper) unmodified from the official
+jsDelivr build referenced in `website/templates/base.html`. The files are not
+copied into this repository. `website/static/css/series-theme.css` sets
+Bootstrap's documented CSS variables and contains no Bootstrap source.
+
+The MIT License (MIT)
+
+Copyright (c) 2011-2025 The Bootstrap Authors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

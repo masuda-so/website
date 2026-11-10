@@ -1,67 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.documentElement;
   const header = document.querySelector('[data-header]');
-  const menuButton = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.site-nav');
-  const mobileQuery = window.matchMedia('(max-width: 900px)');
+  const nav = document.querySelector('#site-nav');
 
   const updateHeader = () => header?.classList.toggle('scrolled', window.scrollY > 30);
   updateHeader();
   window.addEventListener('scroll', updateHeader, { passive: true });
 
-  if (menuButton && nav) {
-    const setMenuState = (isOpen, restoreFocus = false) => {
-      nav.classList.toggle('open', isOpen);
-      menuButton.setAttribute('aria-expanded', String(isOpen));
-      menuButton.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
-      document.body.classList.toggle('menu-open', isOpen);
-
-      if (isOpen) {
-        window.requestAnimationFrame(() => nav.querySelector('a')?.focus());
-      } else if (restoreFocus) {
-        menuButton.focus();
-      }
-    };
-
-    menuButton.addEventListener('click', () => {
-      setMenuState(menuButton.getAttribute('aria-expanded') !== 'true');
-    });
-
+  // The menu is a Bootstrap collapse; close it after an in-page link is chosen.
+  if (nav && window.bootstrap) {
     nav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => setMenuState(false));
-    });
-
-    document.addEventListener('keydown', event => {
-      const menuIsOpen = menuButton.getAttribute('aria-expanded') === 'true';
-      if (event.key === 'Escape' && menuIsOpen) {
-        setMenuState(false, true);
-        return;
-      }
-
-      if (event.key === 'Tab' && menuIsOpen) {
-        const focusableElements = [menuButton, ...nav.querySelectorAll('a')];
-        const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
-
-        if (event.shiftKey && document.activeElement === firstElement) {
-          event.preventDefault();
-          lastElement.focus();
-        } else if (!event.shiftKey && document.activeElement === lastElement) {
-          event.preventDefault();
-          firstElement.focus();
+      link.addEventListener('click', () => {
+        if (nav.classList.contains('show')) {
+          window.bootstrap.Collapse.getOrCreateInstance(nav, { toggle: false }).hide();
         }
-      }
+      });
     });
-
-    const resetMenuAtDesktop = event => {
-      if (!event.matches) setMenuState(false);
-    };
-    if (mobileQuery.addEventListener) {
-      mobileQuery.addEventListener('change', resetMenuAtDesktop);
-    } else {
-      mobileQuery.addListener(resetMenuAtDesktop);
-    }
-    root.classList.add('menu-ready');
   }
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

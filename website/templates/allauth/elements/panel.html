@@ -3,14 +3,14 @@
 <section>
   <div class="card mb-4">
     <div class="card-body">
-      <h2 class="card-title">
+      <h2 class="card-title h4">
         {% slot title %}
       {% endslot %}
     </h2>
     {% slot body %}
   {% endslot %}
   {% if slots.actions %}
-    <ul>
+    <ul class="list-unstyled d-flex flex-wrap gap-2 mb-0">
       {% for action in slots.actions %}<li>{{ action }}</li>{% endfor %}
     </ul>
   {% endif %}

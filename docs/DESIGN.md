@@ -39,6 +39,34 @@ products themselves the main visual evidence.
 These are Ether's existing project values, not values prescribed by Apple.
 The provenance and license of the company mark remain in `THIRD_PARTY_NOTICES.md`.
 
+## Component system (Web series)
+
+The site is built from stock [Bootstrap 5.3](https://getbootstrap.com/docs/5.3/)
+components and utilities (checked 2026-11-10, version 5.3.8). This is the shared
+rule for Ether's Web / Django repositories: structure and components are common,
+and a product differs only in its tokens.
+
+- `website/templates/base.html` loads Bootstrap's unmodified CSS and its JS
+  bundle from the official jsDelivr build, pinned by version and SRI hash. The
+  static build's Content-Security-Policy allows that one host for scripts and
+  styles.
+- `website/static/css/series-theme.css` is the shared theme. It maps the
+  `--series-*` tokens onto Bootstrap's documented CSS variables (body, links,
+  buttons, cards, navigation, list groups, forms, dark sections). Keep it
+  identical across the series; change it in every repository together.
+- `website/static/css/project.css` defines Ether's `--series-*` tokens (the
+  identity values in the table above) and the few rules Bootstrap has no
+  component for: the header that turns opaque on scroll, the headline tracking,
+  the three-screen hero, the app screenshot frame, and the scroll reveal.
+- Templates use Bootstrap's own parts: `navbar` + `collapse` for the header,
+  the grid (`row` / `col-*`) for layout, `card` for apps and business areas,
+  `btn` (pill) for actions and the filter, `nav-pills` for document tabs,
+  `list-group` for support links, `alert` for warnings, `badge` for numbering,
+  and `visually-hidden-focusable` for the skip link.
+- Primary actions use `btn-dark`; the lime accent is `btn-primary` and is kept
+  for the skip link and accents on dark sections. Do not add new component CSS
+  when a Bootstrap component or utility already does the job.
+
 ## Shared presentation
 
 - Order: Grace, Vault, Ukiyo, Still, Weave, matching the store workstream.

@@ -20,7 +20,7 @@ Ether合同会社の企業サイトを管理する Django プロジェクト（c
 
 - ruff で lint と整形（`pyproject.toml` の `[tool.ruff]`。マイグレーションと `staticfiles/` は除外）。djLint は `profile = "django"`、インデント 2、1 行 119 桁。`.editorconfig` が文字コード・改行・インデントを揃える。
 - モジュールと関数は `snake_case`、クラスは `CapWords`。`models.py`、`urls.py`、`migrations/`、`templates/`、`static/` という Django が認識する名前を保つ。
-- 生成した公開物や第三者の依存をアプリケーションのソースに写さない。
+- 生成した公開物や第三者の依存をアプリケーションのソースに写さない。例外は Bootstrap（`website/static/vendor/bootstrap-<版>/`、無改変、利用者の決定 2026-11-11）で、Web 系列は同じファイルを同梱する。画面は Bootstrap の部品と `series-theme.css` で作り、使い分けは `docs/DESIGN.md` に従う。
 
 ## テストの指針
 

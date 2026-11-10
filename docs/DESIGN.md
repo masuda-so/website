@@ -46,10 +46,12 @@ components and utilities (checked 2026-11-10, version 5.3.8). This is the shared
 rule for Ether's Web / Django repositories: structure and components are common,
 and a product differs only in its tokens.
 
-- `website/templates/base.html` loads Bootstrap's unmodified CSS and its JS
-  bundle from the official jsDelivr build, pinned by version and SRI hash. The
-  static build's Content-Security-Policy allows that one host for scripts and
-  styles.
+- Bootstrap's unmodified CSS and JS bundle are kept in
+  `website/static/vendor/bootstrap-<version>/` and served from this site, so the
+  Content-Security-Policy allows no external script host and the pages work
+  offline. Every repository in the series vendors the same files. To upgrade,
+  add the new version's directory, switch `base.html`, update
+  `THIRD_PARTY_NOTICES.md`, and remove the old directory.
 - `website/static/css/series-theme.css` is the shared theme. It maps the
   `--series-*` tokens onto Bootstrap's documented CSS variables (body, links,
   buttons, cards, navigation, list groups, forms, dark sections). Keep it

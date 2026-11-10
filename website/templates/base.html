@@ -73,12 +73,9 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Noto+Sans+JP:wght@400;500;600;700&amp;display=swap" />
     {% block css %}
-      <!-- Bootstrap 5.3 CSS (official jsDelivr build, pinned with SRI) -->
+      <!-- Bootstrap 5.3.8 CSS, unmodified and served from this site (see THIRD_PARTY_NOTICES.md) -->
       <link rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer" />
+            href="{% static 'vendor/bootstrap-5.3.8/bootstrap.min.css' %}" />
       <!-- Your stuff: Third-party CSS libraries go here -->
       <!-- Shared Web series theme, then project-specific CSS -->
       {% compress css %}
@@ -90,12 +87,9 @@
     ================================================== -->
     {# Placed at the top of the document so pages load faster with defer #}
     {% block javascript %}
-      <!-- Bootstrap 5.3 JS bundle with Popper (official jsDelivr build, pinned with SRI) -->
+      <!-- Bootstrap 5.3.8 JS bundle with Popper, unmodified and served from this site -->
       <script defer
-              src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-              integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-              crossorigin="anonymous"
-              referrerpolicy="no-referrer"></script>
+              src="{% static 'vendor/bootstrap-5.3.8/bootstrap.bundle.min.js' %}"></script>
       <!-- Your stuff: Third-party javascript libraries go here -->
       <!-- place project specific Javascript in this file -->
       {% compress js %}

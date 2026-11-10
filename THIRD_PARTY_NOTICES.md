@@ -4,11 +4,17 @@
 
 Source: https://github.com/twbs/bootstrap
 
-The site loads Bootstrap 5.3.8 (`bootstrap.min.css` and
-`bootstrap.bundle.min.js`, which includes Popper) unmodified from the official
-jsDelivr build referenced in `website/templates/base.html`. The files are not
-copied into this repository. `website/static/css/series-theme.css` sets
+`website/static/vendor/bootstrap-5.3.8/` contains Bootstrap 5.3.8
+(`bootstrap.min.css` and `bootstrap.bundle.min.js`) unmodified, as published at
+`https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/`, with its `LICENSE`. The
+bundle includes Popper 2 (MIT, Copyright (c) 2019 Federico Zivolo), whose notice
+is kept in the file header. `website/static/css/series-theme.css` sets
 Bootstrap's documented CSS variables and contains no Bootstrap source.
+
+SHA-384 of the copied files:
+
+- `bootstrap.min.css`: `sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB`
+- `bootstrap.bundle.min.js`: `FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI`
 
 The MIT License (MIT)
 

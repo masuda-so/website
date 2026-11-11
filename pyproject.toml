@@ -60,6 +60,13 @@ dev = [
   "werkzeug[watchdog]==3.1.9",
 ]
 
+# ==== uv ====
+[tool.uv]
+# Always use a uv-managed CPython build. The interpreter that Cloudflare's
+# Workers Builds image compiles for .python-version has no sqlite3 module
+# (seen 2026-11-11), and the static build needs SQLite.
+python-preference = "only-managed"
+
 # ==== djLint ====
 [tool.djlint]
 profile = "django"

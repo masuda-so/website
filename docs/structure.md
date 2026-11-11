@@ -177,7 +177,7 @@ metadata, signatures, and available CI results after pushing.
 
 ## Continuous integration
 
-`.github/workflows/ci.yml` uses GitHub's official
+`.github/workflows/django.yml` uses GitHub's official
 [django starter workflow](https://github.com/actions/starter-workflows/blob/e3c451d60f119b71caebf13c98ac45da6e15b4b7/ci/django.yml).
 The recorded upstream revision is `e3c451d60f119b71caebf13c98ac45da6e15b4b7`.
 Workflow templates are meant to be adapted ("Optionally, make additional

@@ -68,10 +68,8 @@
     <link rel="apple-touch-icon"
           sizes="180x180"
           href="{% static 'images/favicons/apple-touch-icon.png' %}?v=20260915" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Noto+Sans+JP:wght@400;500;600;700&amp;display=swap" />
+    <!-- DM Sans and Noto Sans JP, unmodified and served from this site (see THIRD_PARTY_NOTICES.md) -->
+    <link rel="stylesheet" href="{% static 'vendor/fonts/fonts.css' %}" />
     {% block css %}
       <!-- Bootstrap 5.3.8 CSS, unmodified and served from this site (see THIRD_PARTY_NOTICES.md) -->
       <link rel="stylesheet"

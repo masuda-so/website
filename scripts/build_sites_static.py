@@ -21,13 +21,13 @@ APP_LANGUAGES = ("en", "ja")
 # the generated files themselves. The apps embed these fixed URLs, so the host is
 # a constant rather than a build-time option.
 SITE_HOST = "ether-llc.com"
-# The pages load only their own scripts, stylesheets and images, plus Google
-# Fonts, and use no inline scripts or style attributes. Bootstrap is served from
-# this site (website/static/vendor/), so no script host is allowed.
+# The pages load only their own scripts, stylesheets, fonts and images, and use
+# no inline scripts or style attributes. Bootstrap and the fonts are served from
+# this site (website/static/vendor/), so no other host is allowed.
 CONTENT_SECURITY_POLICY = (
     "default-src 'self'; "
-    "style-src 'self' https://fonts.googleapis.com; "
-    "font-src https://fonts.gstatic.com; "
+    "style-src 'self'; "
+    "font-src 'self'; "
     "object-src 'none'; "
     "base-uri 'self'; "
     "form-action 'self'; "

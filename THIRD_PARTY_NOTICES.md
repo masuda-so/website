@@ -116,3 +116,10 @@ Codex uses when it generates an `AGENTS.md` with its `/init` command
 `codex-rs/tui/assets/prompt_for_init_command.md`, commit `6478a751fde8`,
 2026-08-29, Apache-2.0). The headings are translated into Japanese; the contents
 are this repository's own.
+
+## Fonts
+
+`website/static/vendor/fonts/` contains DM Sans and Noto Sans JP as distributed
+by Google Fonts (downloaded 2026-11-11), unmodified, so the pages contact no
+other host. Both are licensed under the SIL Open Font License 1.1; the license
+texts are kept next to the files (`OFL-dmsans.txt`, `OFL-notosansjp.txt`).

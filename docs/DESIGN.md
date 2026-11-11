@@ -39,6 +39,36 @@ products themselves the main visual evidence.
 These are Ether's existing project values, not values prescribed by Apple.
 The provenance and license of the company mark remain in `THIRD_PARTY_NOTICES.md`.
 
+## Component system (Web series)
+
+The site is built from stock [Bootstrap 5.3](https://getbootstrap.com/docs/5.3/)
+components and utilities (checked 2026-11-10, version 5.3.8). This is the shared
+rule for Ether's Web / Django repositories: structure and components are common,
+and a product differs only in its tokens.
+
+- Bootstrap's unmodified CSS and JS bundle are kept in
+  `website/static/vendor/bootstrap-<version>/` and served from this site, so the
+  Content-Security-Policy allows no external script host and the pages work
+  offline. Every repository in the series vendors the same files. To upgrade,
+  add the new version's directory, switch `base.html`, update
+  `THIRD_PARTY_NOTICES.md`, and remove the old directory.
+- `website/static/css/series-theme.css` is the shared theme. It maps the
+  `--series-*` tokens onto Bootstrap's documented CSS variables (body, links,
+  buttons, cards, navigation, list groups, forms, dark sections). Keep it
+  identical across the series; change it in every repository together.
+- `website/static/css/project.css` defines Ether's `--series-*` tokens (the
+  identity values in the table above) and the few rules Bootstrap has no
+  component for: the header that turns opaque on scroll, the headline tracking,
+  the three-screen hero, the app screenshot frame, and the scroll reveal.
+- Templates use Bootstrap's own parts: `navbar` + `collapse` for the header,
+  the grid (`row` / `col-*`) for layout, `card` for apps and business areas,
+  `btn` (pill) for actions and the filter, `nav-pills` for document tabs,
+  `list-group` for support links, `alert` for warnings, `badge` for numbering,
+  and `visually-hidden-focusable` for the skip link.
+- Primary actions use `btn-dark`; the lime accent is `btn-primary` and is kept
+  for the skip link and accents on dark sections. Do not add new component CSS
+  when a Bootstrap component or utility already does the job.
+
 ## Shared presentation
 
 - Order: Grace, Vault, Ukiyo, Still, Weave, matching the store workstream.

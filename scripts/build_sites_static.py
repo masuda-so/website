@@ -22,7 +22,8 @@ APP_LANGUAGES = ("en", "ja")
 # a constant rather than a build-time option.
 SITE_HOST = "ether-llc.com"
 # The pages load only their own scripts, stylesheets and images, plus Google
-# Fonts, and use no inline scripts or style attributes.
+# Fonts, and use no inline scripts or style attributes. Bootstrap is served from
+# this site (website/static/vendor/), so no script host is allowed.
 CONTENT_SECURITY_POLICY = (
     "default-src 'self'; "
     "style-src 'self' https://fonts.googleapis.com; "
@@ -97,11 +98,13 @@ def main() -> None:
         "  Referrer-Policy: strict-origin-when-cross-origin\n",
         encoding="utf-8",
     )
-    shutil.copy2(
-        ROOT / "website/static/css/project.css",
-        CLIENT / "static/css/project.css",
-    )
+    for stylesheet in ("series-theme.css", "project.css"):
+        shutil.copy2(
+            ROOT / "website/static/css" / stylesheet,
+            CLIENT / "static/css" / stylesheet,
+        )
     shutil.copy2(ROOT / "website/static/js/project.js", CLIENT / "static/js/project.js")
+    shutil.copytree(ROOT / "website/static/vendor", CLIENT / "static/vendor")
     shutil.copytree(ROOT / "website/static/images/apps", CLIENT / "static/images/apps")
     shutil.copy2(ROOT / "THIRD_PARTY_NOTICES.md", CLIENT / "third-party-notices.txt")
     favicon_source = ROOT / "website/static/images/favicons"

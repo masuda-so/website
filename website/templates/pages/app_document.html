@@ -1,53 +1,52 @@
 {% extends "base.html" %}
 
-{% load static compress i18n %}
+{% load static i18n %}
 
 {% block title %}{{ page_title }}{% endblock title %}
-{% block bodyclass %}legal-page{% endblock bodyclass %}
-{# Overrides base.html to drop the Bootstrap CDN assets, which this page does not use. #}
-{% block css %}
-  {% compress css %}
-    <link href="{% static 'css/project.css' %}" rel="stylesheet" />
-  {% endcompress %}
-{% endblock css %}
-{% block javascript %}
-  {% compress js %}
-    <script defer src="{% static 'js/project.js' %}"></script>
-  {% endcompress %}
-{% endblock javascript %}
 {% block body %}
-  <a class="legal-skip-link" href="#document-content">{% if is_japanese %}本文へ移動{% else %}Skip to content{% endif %}</a>
-  <header class="legal-header">
-    <a class="legal-brand"
-       href="{% url 'home' %}"
-       aria-label="{% if is_japanese %}Ether LLC ホーム{% else %}Ether LLC home{% endif %}">
-      <img src="{% static 'images/favicons/ether.svg' %}"
-           width="38"
-           height="38"
-           alt="" />
-      <strong>ETHER LLC</strong>
-    </a>
-    <div class="legal-header-links">
-      <a class="legal-home-link" href="{{ alternate_language_url }}">{{ alternate_language_label }}</a>
-      <a class="legal-home-link" href="{% url 'home' %}">{% if is_japanese %}会社ホーム{% else %}Company home{% endif %}</a>
+  <a class="visually-hidden-focusable btn btn-primary rounded-pill position-fixed top-0 start-0 m-3 z-3"
+     href="#document-content">{% if is_japanese %}本文へ移動{% else %}Skip to content{% endif %}</a>
+  <header class="navbar border-bottom">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2 fw-bold"
+         href="{% url 'home' %}"
+         aria-label="{% if is_japanese %}Ether LLC ホーム{% else %}Ether LLC home{% endif %}">
+        <img src="{% static 'images/favicons/ether.svg' %}"
+             width="38"
+             height="38"
+             alt="" />
+        ETHER LLC
+      </a>
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ alternate_language_url }}">{{ alternate_language_label }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">{% if is_japanese %}会社ホーム{% else %}Company home{% endif %}</a>
+        </li>
+      </ul>
     </div>
   </header>
-  <main id="document-content" class="legal-shell" tabindex="-1">
-    <div class="legal-heading">
-      <p class="legal-eyebrow">ETHER LLC / {{ app.name|upper }}</p>
-      <h1>{{ app.name }} {{ document_label }}</h1>
-      <p>{{ app_summary }}</p>
+  <main id="document-content" class="container py-5" tabindex="-1">
+    <div class="mb-4">
+      <p class="eyebrow text-emphasis-series">ETHER LLC / {{ app.name|upper }}</p>
+      <h1 class="headline display-5">{{ app.name }} {{ document_label }}</h1>
+      <p class="lead mb-0">{{ app_summary }}</p>
     </div>
-    <nav class="legal-tabs" aria-label="{{ documents_aria_label }}">
-      <a href="{% url 'app-document' app_slug=app.slug document='privacy' %}"
+    <nav class="nav nav-pills gap-2 mb-5"
+         aria-label="{{ documents_aria_label }}">
+      <a class="nav-link border{% if document == 'privacy' %} active{% endif %}"
+         href="{% url 'app-document' app_slug=app.slug document='privacy' %}"
          {% if document == "privacy" %}aria-current="page"{% endif %}>
         {% if is_japanese %}プライバシー{% else %}Privacy{% endif %}
       </a>
-      <a href="{% url 'app-document' app_slug=app.slug document='terms' %}"
+      <a class="nav-link border{% if document == 'terms' %} active{% endif %}"
+         href="{% url 'app-document' app_slug=app.slug document='terms' %}"
          {% if document == "terms" %}aria-current="page"{% endif %}>
         {% if is_japanese %}利用規約{% else %}Terms{% endif %}
       </a>
-      <a href="{% url 'app-document' app_slug=app.slug document='support' %}"
+      <a class="nav-link border{% if document == 'support' %} active{% endif %}"
+         href="{% url 'app-document' app_slug=app.slug document='support' %}"
          {% if document == "support" %}aria-current="page"{% endif %}>
         {% if is_japanese %}サポート{% else %}Support{% endif %}
       </a>
@@ -55,7 +54,7 @@
     <article class="legal-document">
       {% if is_japanese %}
         {% if document == "privacy" %}
-          <p class="legal-date">発効日：{{ app.privacy_effective|date:"Y年n月j日" }}</p>
+          <p class="small text-body-secondary">発効日：{{ app.privacy_effective|date:"Y年n月j日" }}</p>
           <section>
             <h2>アプリが保存するデータ</h2>
             <p>{{ app.name }}は、{{ stored_content }}をデバイス上のローカルSwiftDataストアに保存します。本アプリには、分析SDK、広告SDK、アカウントシステム、リモートコンテンツデータベースは含まれません。</p>
@@ -90,7 +89,7 @@
             <p>{{ app.name }}に新しいデータ利用が追加された場合、本ポリシーを変更することがあります。その際は上記の発効日を更新します。</p>
           </section>
         {% elif document == "terms" %}
-          <p class="legal-date">発効日：{{ app.terms_effective|date:"Y年n月j日" }}</p>
+          <p class="small text-body-secondary">発効日：{{ app.terms_effective|date:"Y年n月j日" }}</p>
           <section>
             <h2>{{ app.name }}の利用</h2>
             <p>{{ app.name }}は、個人的かつ適法な目的で利用できます。作成したコンテンツ、およびアシスタントの出力を信頼、共有、利用する前の確認については、利用者が責任を負います。</p>
@@ -119,14 +118,14 @@
             <p>Ether LLCは、製品の発展に応じてアプリまたは本規約を更新することがあります。重要な変更は新しい発効日に反映します。サポートは、機密情報を投稿せずに<a href="{% url 'app-document' app_slug=app.slug document='support' %}">{{ app.name }}サポート</a>をご利用ください。</p>
           </section>
         {% else %}
-          <p class="legal-date">サポート情報確認日：2026年8月10日</p>
+          <p class="small text-body-secondary">サポート情報確認日：2026年8月10日</p>
           <section>
             <h2>サポートを受ける</h2>
             <p>再現可能な技術的不具合は、公開の<a href="{{ app.issue_url }}"
    rel="external">{{ app.name }} Issue Tracker</a>からお知らせください。</p>
             <p>アプリのバージョン、iOSまたはiPadOSのバージョン、端末、再現手順、期待した結果、実際の結果をご記載ください。スクリーンショットを添付する場合は、事前に非公開コンテンツを除いてください。</p>
           </section>
-          <section class="legal-warning">
+          <section class="alert alert-warning mt-4" role="note">
             <h2>プライバシーを守る</h2>
             <p>Issue Trackerは公開されています。{{ sensitive_content }}、Apple Accountの詳細、取引ID、連絡先は投稿しないでください。</p>
           </section>
@@ -141,7 +140,7 @@
         {% endif %}
       {% else %}
         {% if document == "privacy" %}
-          <p class="legal-date">Effective date: {{ app.privacy_effective|date:"F j, Y" }}</p>
+          <p class="small text-body-secondary">Effective date: {{ app.privacy_effective|date:"F j, Y" }}</p>
           <section>
             <h2>Data stored by the app</h2>
             <p>{{ app.name }} stores {{ stored_content }} in its local SwiftData store on your device. The app does not include an analytics SDK, advertising SDK, account system, or remote content database.</p>
@@ -176,7 +175,7 @@
             <p>This policy may change when {{ app.name }} adds a new data practice. The effective date above will be updated when that happens.</p>
           </section>
         {% elif document == "terms" %}
-          <p class="legal-date">Effective date: {{ app.terms_effective|date:"F j, Y" }}</p>
+          <p class="small text-body-secondary">Effective date: {{ app.terms_effective|date:"F j, Y" }}</p>
           <section>
             <h2>Using {{ app.name }}</h2>
             <p>You may use {{ app.name }} for personal, lawful purposes. You are responsible for the content you create and for reviewing any assistant output before relying on, sharing, or acting on it.</p>
@@ -205,14 +204,14 @@
             <p>Ether LLC may update the app or these terms as the product evolves. Material changes will be reflected by a new effective date. For support, use <a href="{% url 'app-document' app_slug=app.slug document='support' %}">{{ app.name }} Support</a> without posting sensitive or confidential information.</p>
           </section>
         {% else %}
-          <p class="legal-date">Support information reviewed: August 10, 2026</p>
+          <p class="small text-body-secondary">Support information reviewed: August 10, 2026</p>
           <section>
             <h2>Get help</h2>
             <p>For a reproducible technical issue, use the public <a href="{{ app.issue_url }}"
     rel="external">{{ app.name }} issue tracker</a>.</p>
             <p>Include the app version, iOS or iPadOS version, device model, steps to reproduce, expected result, and actual result. Screenshots are useful only after private content has been removed.</p>
           </section>
-          <section class="legal-warning">
+          <section class="alert alert-warning mt-4" role="note">
             <h2>Protect your privacy</h2>
             <p>The issue tracker is public. Never post {{ sensitive_content }}, Apple Account details, transaction identifiers, or contact information.</p>
           </section>
@@ -228,8 +227,10 @@
       {% endif %}
     </article>
   </main>
-  <footer class="legal-footer">
-    <span>© 2026 Ether LLC</span>
-    <a href="{% url 'home' %}">ether-llc.com</a>
+  <footer class="border-top py-4">
+    <div class="container d-flex flex-wrap justify-content-between gap-2 small">
+      <span>© 2026 Ether LLC</span>
+      <a class="link-dark" href="{% url 'home' %}">ether-llc.com</a>
+    </div>
   </footer>
 {% endblock body %}

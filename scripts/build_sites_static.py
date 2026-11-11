@@ -29,9 +29,15 @@ CONTENT_SECURITY_POLICY = (
     "style-src 'self' https://fonts.googleapis.com; "
     "font-src https://fonts.gstatic.com; "
     "object-src 'none'; "
-    "base-uri 'self'; "
+    "base-uri 'none'; "
     "form-action 'self'; "
     "frame-ancestors 'none'"
+)
+
+
+# The pages use none of these browser features, so no script may ask for them.
+PERMISSIONS_POLICY = (
+    "camera=(), geolocation=(), microphone=(), focus-without-user-activation=()"
 )
 
 
@@ -95,7 +101,9 @@ def main() -> None:
         "  Strict-Transport-Security: max-age=63072000\n"
         "  X-Content-Type-Options: nosniff\n"
         "  X-Frame-Options: DENY\n"
-        "  Referrer-Policy: strict-origin-when-cross-origin\n",
+        "  Referrer-Policy: strict-origin-when-cross-origin\n"
+        f"  Permissions-Policy: {PERMISSIONS_POLICY}\n"
+        "  Cross-Origin-Opener-Policy: same-origin-allow-popups\n",
         encoding="utf-8",
     )
     for stylesheet in ("series-theme.css", "project.css"):
